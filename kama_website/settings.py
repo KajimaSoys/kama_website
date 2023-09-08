@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 INSTALLED_APPS = [
     # project apps
     'pages.main_page.apps.PagesConfig',
+    'pages.delivery_page.apps.DeliveryPageConfig',
 
     # default
     'django.contrib.admin',

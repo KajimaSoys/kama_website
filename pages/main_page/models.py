@@ -6,7 +6,7 @@ class HeaderBlock(models.Model):
     Description of HeaderBlock Model of Main Page App
     """
 
-    logo = models.FileField(verbose_name='Лого', upload_to='main/header/', max_length=500)
+    logo = models.FileField(verbose_name='Лого', upload_to='main_page/header/', max_length=500)
     number = models.CharField(verbose_name='Номер компании', max_length=255)
 
     def __str__(self):
@@ -25,7 +25,7 @@ class MainBlock(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=500)
     description = models.CharField(verbose_name='Описание', max_length=500)
 
-    image = models.FileField(verbose_name='Фото', upload_to='main/main/', max_length=500)
+    image = models.FileField(verbose_name='Фото', upload_to='main_page/main/', max_length=500)
 
     def __str__(self):
         return 'Главный блок'
@@ -40,7 +40,7 @@ class MainBlock(models.Model):
 #     Description of CatalogTeaserBlock Model of Main Page App
 #     """
 #
-#     image = models.FileField(verbose_name='Изображение тизера каталога', upload_to='main/catalog_teaser/', max_length=500)
+#     image = models.FileField(verbose_name='Изображение тизера каталога', upload_to='main_page/catalog_teaser/', max_length=500)
 #     description = models.CharField(verbose_name='Подпись тизера', max_length=500)
 #
 #     def __str__(self):
@@ -59,9 +59,9 @@ class AboutBlock(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=500)
     description = models.CharField(verbose_name='Описание', max_length=500)
 
-    image_first = models.FileField(verbose_name='Фото №1', upload_to='main/about/', max_length=500)
-    image_second = models.FileField(verbose_name='Фото №2', upload_to='main/about/', max_length=500)
-    image_third = models.FileField(verbose_name='Фото №3', upload_to='main/about/', max_length=500)
+    image_first = models.FileField(verbose_name='Фото №1', upload_to='main_page/about/', max_length=500)
+    image_second = models.FileField(verbose_name='Фото №2', upload_to='main_page/about/', max_length=500)
+    image_third = models.FileField(verbose_name='Фото №3', upload_to='main_page/about/', max_length=500)
 
     def __str__(self):
         return 'Тизер компании'
@@ -110,7 +110,7 @@ class RequestBlock(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=500)
     description = models.CharField(verbose_name='Описание', max_length=500)
 
-    image = models.FileField(verbose_name='Фото', upload_to='main/request/', max_length=500)
+    image = models.FileField(verbose_name='Фото', upload_to='main_page/request/', max_length=500)
 
     def __str__(self):
         return 'Блок заявки'
@@ -140,8 +140,8 @@ class StagesBlock(models.Model):
     title_fifth = models.CharField(verbose_name='Заголовок', max_length=500)
     description_fifth = models.CharField(verbose_name='Описание', max_length=500)
 
-    image_first = models.FileField(verbose_name='Фото №1', upload_to='main/stages/', max_length=500)
-    image_second = models.FileField(verbose_name='Фото №2', upload_to='main/stages/', max_length=500)
+    image_first = models.FileField(verbose_name='Фото №1', upload_to='main_page/stages/', max_length=500)
+    image_second = models.FileField(verbose_name='Фото №2', upload_to='main_page/stages/', max_length=500)
 
     def __str__(self):
         return 'Этапы создания мебели'
@@ -173,7 +173,7 @@ class DeliveryBlock(models.Model):
 #     Description of SolutionsBlock Model of Main Page App
 #     """
 #
-#     image = models.FileField(verbose_name='Фото', upload_to='main/solutions/', max_length=500)
+#     image = models.FileField(verbose_name='Фото', upload_to='main_page/solutions/', max_length=500)
 #
 #     order = models.PositiveIntegerField(
 #         default=0,
@@ -196,7 +196,7 @@ class DeliveryBlock(models.Model):
 #
 #     name = models.CharField(verbose_name='Имя автора', max_length=500)
 #     review = models.CharField(verbose_name='Отзыв', max_length=5000)
-#     image = models.FileField(verbose_name='Фото автора', upload_to='main/reviews/', max_length=500, blank=True)
+#     image = models.FileField(verbose_name='Фото автора', upload_to='main_page/reviews/', max_length=500, blank=True)
 #
 #     order = models.PositiveIntegerField(
 #         default=0,
@@ -260,8 +260,8 @@ class ContactsBlock(models.Model):
     whatsapp_link = models.CharField(verbose_name='ссылка на Whatsapp', max_length=255)
     tg_link = models.CharField(verbose_name='ссылка на Telegram', max_length=255)
 
-    image_first = models.FileField(verbose_name='Фото №1', upload_to='main/contacts/', max_length=500)
-    image_second = models.FileField(verbose_name='Фото №2', upload_to='main/contacts/', max_length=500)
+    image_first = models.FileField(verbose_name='Фото №1', upload_to='main_page/contacts/', max_length=500)
+    image_second = models.FileField(verbose_name='Фото №2', upload_to='main_page/contacts/', max_length=500)
 
     def __str__(self):
         return 'Контакты'
