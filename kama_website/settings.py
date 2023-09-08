@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     # project apps
     'pages.main_page.apps.PagesConfig',
     'pages.delivery_page.apps.DeliveryPageConfig',
+    'core.service.apps.ServiceConfig',
+    'core.catalog.apps.CatalogConfig',
 
     # default
     'django.contrib.admin',
@@ -34,7 +36,8 @@ INSTALLED_APPS = [
     # 3rd parties
     'rest_framework',
     'corsheaders',
-    'adminsortable2'
+    'adminsortable2',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,18 @@ try:
     from .local_settings import *
 except ImportError:
     from .prod_settings import *
+
+
+# ckeditor
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
