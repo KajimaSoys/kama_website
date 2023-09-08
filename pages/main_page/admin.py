@@ -2,17 +2,10 @@ from django.contrib import admin
 from .models import (
     HeaderBlock,
     MainBlock,
-    CatalogTeaserBlock,
-    PopularModelsBlock,
-    AdvantageBlock,
     WhyBlock,
     RequestBlock,
     StagesBlock,
     DeliveryBlock,
-    SolutionsBlock,
-    ReviewsBlock,
-    QuestionsBlock,
-    AddQuestionBlock,
     ContactsBlock
 )
 
@@ -24,21 +17,6 @@ class HeaderBlockAdmin(admin.ModelAdmin):
 
 @admin.register(MainBlock)
 class MainBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(CatalogTeaserBlock)
-class CatalogTeaserBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(PopularModelsBlock)
-class PopularModelsBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(AdvantageBlock)
-class AdvantageBlockAdmin(admin.ModelAdmin):
     pass
 
 
@@ -59,26 +37,6 @@ class StagesBlockAdmin(admin.ModelAdmin):
 
 @admin.register(DeliveryBlock)
 class DeliveryBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(SolutionsBlock)
-class SolutionsBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(ReviewsBlock)
-class ReviewsBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(QuestionsBlock)
-class QuestionsBlockAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(AddQuestionBlock)
-class AddQuestionBlockAdmin(admin.ModelAdmin):
     pass
 
 
