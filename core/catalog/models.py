@@ -51,7 +51,12 @@ class SofaImage(models.Model):
     """
     sofa = models.ForeignKey(Sofa, related_name='images', on_delete=models.CASCADE, verbose_name="Диван")
     image = models.ImageField(upload_to='core/catalog/sofas/', verbose_name="Изображение")
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name="Порядок")
+    order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Порядок")
+
+    def __str__(self):
+        return f'Изображение №{self.order}'
 
     class Meta:
+        verbose_name = 'изображение дивана'
+        verbose_name_plural = 'Изображения диванов'
         ordering = ['order', ]
