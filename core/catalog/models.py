@@ -10,7 +10,8 @@ class Sofa(models.Model):
     # Первая группа полей
     name = models.CharField(max_length=255, verbose_name="Название модели")
     working_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Рабочее название")
-    description = RichTextField(verbose_name="Описание")
+    short_description = RichTextField(verbose_name="Короткое описание", help_text="Отображается в карточке дивана в каталоге")
+    description = RichTextField(verbose_name="Описание", help_text="Отображается на странице дивана")
 
     # Вторая группа полей
     SOFA_TYPE_CHOICES = [

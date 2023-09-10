@@ -30,7 +30,7 @@ class Review(models.Model):
     review = RichTextField(verbose_name='Отзыв', config_name='default')
     author_photo = models.FileField(verbose_name='Фото автора', upload_to='core/service/reviews/', max_length=500, blank=True)
     order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Порядок")
-    sofa = models.ForeignKey(Sofa, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Диван")
+    sofa = models.ForeignKey(Sofa, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviews', verbose_name="Диван")
 
 
     def __str__(self):
