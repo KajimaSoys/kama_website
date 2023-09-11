@@ -32,7 +32,6 @@ class Review(models.Model):
     order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Порядок")
     sofa = models.ForeignKey(Sofa, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviews', verbose_name="Диван")
 
-
     def __str__(self):
         return self.author
 
