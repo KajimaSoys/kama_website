@@ -1,5 +1,7 @@
 <template>
+  <div class="reviews-view">
 
+  </div>
 </template>
 
 <script>

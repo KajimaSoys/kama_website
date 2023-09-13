@@ -1,5 +1,7 @@
 <template>
+  <div class="description-component">
 
+  </div>
 </template>
 
 <script>

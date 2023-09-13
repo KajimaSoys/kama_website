@@ -1,5 +1,7 @@
 <template>
+  <div class="other-variants-component">
 
+  </div>
 </template>
 
 <script>

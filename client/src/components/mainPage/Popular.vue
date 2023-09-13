@@ -1,5 +1,7 @@
 <template>
+  <div class="popular-component">
 
+  </div>
 </template>
 
 <script>

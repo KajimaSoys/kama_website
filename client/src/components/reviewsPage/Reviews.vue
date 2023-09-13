@@ -1,5 +1,7 @@
 <template>
+  <div class="reviews-component">
 
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,7 @@
 <template>
+  <div class="filters-component">
 
+  </div>
 </template>
 
 <script>

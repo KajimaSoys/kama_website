@@ -1,5 +1,7 @@
 <template>
+  <div class="delivery-view">
 
+  </div>
 </template>
 
 <script>

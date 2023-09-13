@@ -1,5 +1,7 @@
 <template>
+  <div class="questions-component">
 
+  </div>
 </template>
 
 <script>

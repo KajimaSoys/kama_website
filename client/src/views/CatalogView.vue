@@ -1,5 +1,7 @@
 <template>
+  <div class="catalog-view">
 
+  </div>
 </template>
 
 <script>

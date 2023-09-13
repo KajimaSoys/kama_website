@@ -1,5 +1,7 @@
 <template>
+  <div class="payment-component">
 
+  </div>
 </template>
 
 <script>

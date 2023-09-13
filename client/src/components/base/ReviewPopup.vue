@@ -1,5 +1,7 @@
 <template>
+  <div class="review-popup-component">
 
+  </div>
 </template>
 
 <script>

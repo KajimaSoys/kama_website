@@ -1,5 +1,7 @@
 <template>
+  <div class="image-slider-component">
 
+  </div>
 </template>
 
 <script>

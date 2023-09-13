@@ -1,39 +1,37 @@
 <template>
-  <div class="content">
-    прив
-<!--    <Header :header="this.header" @popUpCall="popUpCall()"/>-->
+  <div class="main-view">
 
-<!--    <Main :main="this.main" @popUpCall="popUpCall()"/>-->
+    <Header :header="this.header_block" @popUpCall="popUpCall('request')"/>
 
-<!--    <About :about="this.about"/>-->
+    <Main :main="this.main_block" @popUpCall="popUpCall('request')"/>
 
-<!--    <Production :production="this.production"/>-->
+    <Popular />
 
-<!--    <Services :services="this.services"/>-->
+    <About :about="this.about_block"/>
 
-<!--    <Projects :projects="this.projects"/>-->
+    <Why :why="this.why_block"/>
 
-<!--    <Request requestNum="1"/>-->
+    <Request :request="this.request_block"/>
 
-<!--    <Stages :stages="this.stages" :stagesArr="this.stagesArr"/>-->
+    <Stages :stages="this.stages_block"/>
 
-<!--    <Team :team="this.team" :staffArr="this.staffArr"/>-->
+    <Delivery :delivery="this.delivery_block"/>
 
-<!--    <Request requestNum="2"/>-->
+    <Reviews />
 
-<!--    <Questions :questions="this.questions" :questionsArr="this.questionsArr"/>-->
+    <Questions  /><!--:questionsArr="this.questionsArr"-->
 
-<!--    <Reviews :reviews="this.reviews" :reviewTextArr="this.reviewTextArr" :reviewVideoArr="this.reviewVideoArr"/>-->
+    <AddQuestions @popUpCall="popUpCall('question')"/>
 
-<!--    <Request requestNum="3"/>-->
+    <Contacts :contacts="this.contacts_block"/>
 
-<!--    <Contacts :contacts="this.contacts"/>-->
-
-<!--    <Footer :header="this.header" :meta="true" @popUpCall="popUpCall()"/>-->
+    <Footer :footer="this.header_block" @popUpCall="popUpCall('request')"/>
 
 <!--    <VideoPlayer :visible="videoVisible" :videoId="videoId" @close="hideVideo" />-->
 
-<!--    <PopUp :visible="popUpVisible" @close="hidePopUp" />-->
+    <RequestPopup :visible="requestPopUpVisible" @close="hidePopUp('request')" />
+
+    <QuestionPopup :visible="questionPopUpVisible" @close="hidePopUp('question')"/>
 
   </div>
 </template>
@@ -80,8 +78,21 @@ export default {
 
   data(){
     return {
+      header_block: {},
+      main_block: {},
+      // popular_block
+      about_block: {},
+      why_block: {},
+      request_block: {},
+      stages_block: {},
+      delivery_block: {},
+      // reviews_block
+      // questions_block: {},
+      contacts_block: {},
+      footer_block: {},
 
-      popUpVisible: false,
+      requestPopUpVisible: false,
+      questionPopUpVisible: false,
     }
   },
 
@@ -91,6 +102,16 @@ export default {
           .get('api/v1/main_page/')
           .then( response => {
             let receivedData = response.data
+
+            this.header_block = receivedData.header_block
+            this.main_block = receivedData.main_block
+            this.about_block = receivedData.about_block
+            this.why_block = receivedData.why_block
+            this.request_block = receivedData.request_block
+            this.stages_block = receivedData.stages_block
+            this.delivery_block = receivedData.delivery_block
+            this.contacts_block = receivedData.contacts_block
+            this.footer_block = receivedData.footer_block
 
             // receivedData.forEach(block => {
             //   if (block.type === 'HeaderBlock') {
@@ -153,12 +174,20 @@ export default {
           })
     },
 
-    popUpCall() {
-      this.popUpVisible = true;
+    popUpCall(target) {
+      if (target === 'request'){
+        this.requestPopUpVisible = true;
+      } else {
+        this.questionPopUpVisible = true;
+      }
       document.body.style.overflow = "hidden";
     },
-    hidePopUp() {
-      this.popUpVisible = false;
+    hidePopUp(target) {
+      if (target === 'request'){
+        this.requestPopUpVisible = false;
+      } else {
+        this.questionPopUpVisible = false;
+      }
       document.body.style.overflow = "";
     },
 

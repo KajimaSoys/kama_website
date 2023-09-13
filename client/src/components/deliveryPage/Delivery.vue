@@ -1,5 +1,7 @@
 <template>
+  <div class="delivery-component">
 
+  </div>
 </template>
 
 <script>

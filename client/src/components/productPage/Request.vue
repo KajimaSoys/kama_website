@@ -1,5 +1,7 @@
 <template>
+  <div class="request-component">
 
+  </div>
 </template>
 
 <script>

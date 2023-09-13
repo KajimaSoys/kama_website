@@ -1,5 +1,7 @@
 <template>
+  <div class="question-popup-component">
 
+  </div>
 </template>
 
 <script>

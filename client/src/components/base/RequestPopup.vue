@@ -1,5 +1,7 @@
 <template>
+  <div class="request-popup-component">
 
+  </div>
 </template>
 
 <script>
