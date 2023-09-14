@@ -30,13 +30,43 @@ class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(Sofa)
 class SofaAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = [
-        ("Основные характеристики", {'fields': ['name', 'working_name', 'description']}),
-        ("Тип, Цвет и Цена", {'fields': ['sofa_type', 'color', 'price']}),
-        ("Размеры", {'fields': ['height', 'width', 'depth', 'seat_depth', 'back_height', 'armrest_height']}),
+        ("Основные характеристики", {'fields': ['name', 'working_name', 'description', 'short_description']}),
+        ("Тип, Цвет и Цена", {'fields': ['sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'price']}),
+        ("Размеры", {'fields': ['height', 'width', 'depth', 'seat_depth', 'back_height', 'armrest_height', 'seat_height', 'legs_height']}),
         ("Другие варианты", {'fields': ['other_variants']}),
     ]
 
-    list_display = ['name', 'sofa_type', 'color', 'price']
+    list_display = ['name', 'working_name', 'sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'sizes', 'price', 'thumbnail']
+    search_fields = ['name', 'working_name', 'color']
+    list_filter = ['sofa_form', 'sofa_type', 'folding_mechanism']
+
     inlines = [SofaImageInline, ReviewInline]
-    # raw_id_fields = ('other_variants',)
-    # search_fields = ['name', 'working_name']
+    raw_id_fields = ('other_variants',)
+    related_lookup_fields = {
+        'fk': ['other_variants'],
+    }
+    actions = ["copy_selected"]
+
+    def copy_selected(self, request, queryset):
+        for obj in queryset:
+            obj.working_name += ' - Копия'
+            obj.pk = None
+            obj.save()
+
+    copy_selected.short_description = "Копировать выбранные объекты"
+
+    def sizes(self, obj):
+        return f'{round(obj.height)}*{round(obj.width)}*{round(obj.depth)}мм'
+
+    sizes.short_description = "Размер"
+
+    def thumbnail(self, obj):
+        first_image = obj.images.first()
+        if first_image and first_image.image:
+            return mark_safe(
+                f'<a href="{first_image.image.url}"><img src="{first_image.image.url}" width="250" /></a>'
+            )
+        return "Изображение отсутствует"
+
+    thumbnail.short_description = "Изображение"
+    

@@ -14,23 +14,39 @@ class Sofa(models.Model):
     description = RichTextField(verbose_name="Описание", help_text="Отображается на странице дивана")
 
     # Вторая группа полей
-    SOFA_TYPE_CHOICES = [
+    SOFA_FORM_CHOICES = [
         ('straight', 'Прямой'),
         ('corner', 'Угловой'),
-        ('folding', 'Раскладной'),
-        ('non_folding', 'Нераскладной'),
+        ('p-shaped', ' П-образный')
     ]
-    sofa_type = models.CharField(max_length=50, choices=SOFA_TYPE_CHOICES, verbose_name="Тип")
-    color = models.CharField(max_length=50, verbose_name="Цвет")
+
+    sofa_form = models.CharField(max_length=50, choices=SOFA_FORM_CHOICES, verbose_name="Форма", blank=True)
+
+    SOFA_TYPE_CHOICES = [
+        ("folding", "Раскладной"),
+        ("non_folding", "Нераскладной"),
+    ]
+    sofa_type = models.CharField(max_length=50, choices=SOFA_TYPE_CHOICES, verbose_name="Тип", blank=True)
+
+    FOLDING_MECHANISM_CHOICES = [
+        ('tik-tac', 'Тик-так'),
+        ('dolphin', 'Дельфин'),
+    ]
+
+    folding_mechanism = models.CharField(max_length=50, choices=FOLDING_MECHANISM_CHOICES, verbose_name="Механизм раскладывания", blank=True)
+
+    color = models.CharField(max_length=50, verbose_name="Цвет", blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
 
     # Третья группа полей
     height = models.FloatField(verbose_name="Высота")
     width = models.FloatField(verbose_name="Ширина")
     depth = models.FloatField(verbose_name="Глубина")
-    seat_depth = models.FloatField(verbose_name="Глубина посадочного места")
-    back_height = models.FloatField(verbose_name="Высота спинки")
-    armrest_height = models.FloatField(verbose_name="Высота подлокотников")
+    seat_depth = models.FloatField(verbose_name="Глубина посадочного места", blank=True)
+    back_height = models.FloatField(verbose_name="Высота спинки", blank=True)
+    armrest_height = models.FloatField(verbose_name="Высота подлокотников", blank=True)
+    seat_height = models.FloatField(verbose_name="Высота посадочного места", blank=True)
+    legs_height = models.FloatField(verbose_name="Высота ножек", blank=True)
 
     # Четвертая группа полей
     other_variants = models.ManyToManyField('self', blank=True, verbose_name="Другие варианты исполнения")

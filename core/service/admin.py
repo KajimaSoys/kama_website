@@ -17,7 +17,67 @@ class QuestionAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(PopularModel)
 class PopularModelAdmin(SortableAdminMixin, admin.ModelAdmin):
-    pass
+    list_display = [
+        "get_name",
+        "get_working_name",
+        "get_sofa_form",
+        "get_sofa_type",
+        "get_folding_mechanism",
+        "get_color",
+        "get_sizes",
+        "get_price",
+        "get_thumbnail",
+    ]
+
+    raw_id_fields = ("sofa",)
+    related_lookup_fields = {
+        "fk": ["sofa"],
+    }
+
+    # class Media:
+    #     css = {"all": ("admin/css/admin_overrides.css",)}
+    #     js = ("admin/js/admin_overrides.js",)
+
+    @admin.display(ordering="sofa__name", description="Название")
+    def get_name(self, obj):
+        return obj.sofa.name
+
+    @admin.display(description="Рабочее имя")
+    def get_working_name(self, obj):
+        return obj.sofa.working_name
+    
+    @admin.display(description="Форма дивана")
+    def get_sofa_form(self, obj):
+        return obj.sofa.get_sofa_form_display()
+    
+    @admin.display(description="Тип дивана")
+    def get_sofa_type(self, obj):
+        return obj.sofa.get_sofa_type_display()
+    
+    @admin.display(description="Механизм раскладывания")
+    def get_folding_mechanism(self, obj):
+        return obj.sofa.get_folding_mechanism_display()
+    
+    @admin.display(description="Цвет")
+    def get_color(self, obj):
+        return obj.sofa.color
+    
+    @admin.display(description="Размеры")
+    def get_sizes(self, obj):
+        return f'{round(obj.sofa.height)}*{round(obj.sofa.width)}*{round(obj.sofa.depth)}мм'
+
+    @admin.display(description="Цена")
+    def get_price(self, obj):
+        return obj.sofa.price
+    
+    @admin.display(description="Изображение")
+    def get_thumbnail(self, obj):
+        first_image = obj.sofa.images.first()
+        if first_image and first_image.image:
+            return mark_safe(
+                f'<a href="{first_image.image.url}"><img src="{first_image.image.url}" width="250" /></a>'
+            )
+        return "Изображение отсутствует"
 
 
 @admin.register(Order)
