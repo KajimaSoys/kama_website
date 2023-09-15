@@ -5,21 +5,21 @@
 
     <Main :main="this.main_block" @popUpCall="popUpCall('request')"/>
 
-    <Popular />
+    <Popular :popular_models="this.popular_models"/>
 
     <About :about="this.about_block"/>
 
     <Why :why="this.why_block"/>
 
-    <Request :request="this.request_block"/>
+    <Request :request="this.request_block" @popUpCall="popUpCall('request')"/>
 
     <Stages :stages="this.stages_block"/>
 
     <Delivery :delivery="this.delivery_block"/>
 
-    <Reviews />
+    <Reviews :reviews="this.reviews" @popUpCall="popUpCall('review')"/>
 
-    <Questions  /><!--:questionsArr="this.questionsArr"-->
+    <Questions :questions="this.questions"/><!--:questionsArr="this.questionsArr"-->
 
     <AddQuestions @popUpCall="popUpCall('question')"/>
 
@@ -32,6 +32,8 @@
     <RequestPopup :visible="requestPopUpVisible" @close="hidePopUp('request')" />
 
     <QuestionPopup :visible="questionPopUpVisible" @close="hidePopUp('question')"/>
+
+    <ReviewPopup :visible="reviewPopUpVisible" @close="hidePopUp('review')"/>
 
   </div>
 </template>
@@ -54,6 +56,7 @@ import Contacts from "../components/mainPage/Contacts.vue";
 import Footer from "../components/base/Footer.vue";
 import RequestPopup from "../components/base/RequestPopup.vue";
 import QuestionPopup from "../components/base/QuestionPopup.vue";
+import ReviewPopup from "../components/base/ReviewPopup.vue";
 
 export default {
   name: "MainView",
@@ -73,26 +76,29 @@ export default {
     Contacts,
     Footer,
     RequestPopup,
-    QuestionPopup
+    QuestionPopup,
+    ReviewPopup,
   },
 
   data(){
     return {
       header_block: {},
       main_block: {},
-      // popular_block
       about_block: {},
       why_block: {},
       request_block: {},
       stages_block: {},
       delivery_block: {},
-      // reviews_block
-      // questions_block: {},
       contacts_block: {},
       footer_block: {},
 
+      popular_models: {},
+      reviews: {},
+      questions: [],
+
       requestPopUpVisible: false,
       questionPopUpVisible: false,
+      reviewPopUpVisible: false,
     }
   },
 
@@ -113,34 +119,6 @@ export default {
             this.contacts_block = receivedData.contacts_block
             this.footer_block = receivedData.footer_block
 
-            // receivedData.forEach(block => {
-            //   if (block.type === 'HeaderBlock') {
-            //     this.header = block.data
-            //   } else if (block.type === 'MainBlock') {
-            //     this.main = block.data
-            //   } else if (block.type === 'AboutBlock') {
-            //     this.about = block.data
-            //   } else if (block.type === 'ProductionBlock') {
-            //     this.production = block.data
-            //   } else if (block.type === 'ServicesBlock') {
-            //     this.services = block.data
-            //   } else if (block.type === 'ProjectsBlock') {
-            //     this.projects = block.data
-            //   } else if (block.type === 'StagesBlock') {
-            //     this.stages = block.data
-            //   } else if (block.type === 'TeamBlock') {
-            //     this.team = block.data
-            //   } else if (block.type === 'QuestionsBlock') {
-            //     this.questions = block.data
-            //   } else if (block.type === 'ReviewsBlock') {
-            //     this.reviews = block.data
-            //   } else if (block.type === 'ContactsBlock') {
-            //     this.contacts = block.data
-            //   } else if (block.type === 'FooterBlock') {
-            //     this.footer = block.data
-            //   }
-            // });
-
             console.log(response.data)
           })
           .catch( error => {
@@ -150,24 +128,15 @@ export default {
 
     async getObjectsData(){
       await axios
-          .get('api/v1/core_objects/')
+          .get('api/v1/service/')
           .then( response => {
             let receivedData = response.data
-            receivedData.forEach( block => {
-              if (block.type === 'Stages') {
-                this.stagesArr.push(block.data)
-              } else if (block.type === 'Staff') {
-                this.staffArr.push(block.data)
-              } else if (block.type === 'Questions') {
-                this.questionsArr.push(block.data)
-              } else if (block.type === 'ReviewText') {
-                this.reviewTextArr.push(block.data)
-              } else if (block.type === 'ReviewVideo') {
-                this.reviewVideoArr.push(block.data)
-              }
-            });
 
-            // console.log(response.data)
+            this.popular_models = receivedData.popular_models
+            this.reviews = receivedData.reviews
+            this.questions = receivedData.questions
+
+            console.log(response.data)
           })
           .catch( error => {
             console.log('An error occurred: ', error)
@@ -177,16 +146,20 @@ export default {
     popUpCall(target) {
       if (target === 'request'){
         this.requestPopUpVisible = true;
-      } else {
+      } else if (target === 'question') {
         this.questionPopUpVisible = true;
+      } else if (target === 'review') {
+        this.reviewPopUpVisible = true;
       }
       document.body.style.overflow = "hidden";
     },
     hidePopUp(target) {
       if (target === 'request'){
         this.requestPopUpVisible = false;
-      } else {
+      } else if (target === 'question') {
         this.questionPopUpVisible = false;
+      } else if (target === 'review') {
+        this.reviewPopUpVisible = false;
       }
       document.body.style.overflow = "";
     },
@@ -195,7 +168,7 @@ export default {
 
   beforeMount() {
     this.getPageData()
-    // this.getObjectsData()
+    this.getObjectsData()
   },
 
 }
