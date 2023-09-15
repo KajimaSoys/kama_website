@@ -6,7 +6,7 @@
     <div class="description">
       Мы свяжемся с вами в течение 10 минут и поможем разобраться
     </div>
-    <div class="button">
+    <div class="button" @click="this.$emit('popUpCall')">
       <span>Задать вопрос</span>
       <svg
         class="arrow-right"
@@ -35,6 +35,7 @@ export default {
   props: [
   ],
   emits: [
+      'popUpCall'
   ],
   methods: {
 
@@ -77,6 +78,8 @@ export default {
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
+  transition: background-color .2s ease-in-out;
 }
 
 .button span {
@@ -85,12 +88,29 @@ export default {
   font-size: 1.125rem;
   position: relative;
   font-weight: 500;
+  transition: color .2s ease-in-out;
 }
 
 .arrow-right {
   flex-shrink: 0;
   position: relative;
   overflow: visible;
+}
+
+.arrow-right path {
+  transition: all .2s ease-in-out;
+}
+
+.button:hover {
+  background: #212121;
+}
+
+.button:hover span {
+  color: #fff;
+}
+
+.button:hover .arrow-right path {
+  stroke: #fff;
 }
 
 @media screen and (max-width: 1200px){

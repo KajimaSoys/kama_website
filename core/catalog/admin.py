@@ -69,4 +69,3 @@ class SofaAdmin(SortableAdminMixin, admin.ModelAdmin):
         return "Изображение отсутствует"
 
     thumbnail.short_description = "Изображение"
-    

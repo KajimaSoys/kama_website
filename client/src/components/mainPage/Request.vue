@@ -13,7 +13,7 @@
         {{ this.request.description }}
       </div>
 
-      <div class="button">
+      <div class="button" @click="this.$emit('popUpCall')">
         <span>Оставить заявку</span>
         <svg
           class="arrow-right"
@@ -51,6 +51,7 @@ export default {
       'request'
   ],
   emits: [
+      'popUpCall'
   ],
   methods: {
 
@@ -64,7 +65,7 @@ export default {
   position: relative;
   height: 41.0625rem;
   background-color: #2A2B2D;
-  z-index: -1;
+  z-index: 0;
 }
 
 .background {
@@ -116,6 +117,8 @@ h2 {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  cursor: pointer;
+  transition: background-color .2s ease-in-out;
 }
 
 .button span {
@@ -124,12 +127,29 @@ h2 {
   font-size: 1.125rem;
   position: relative;
   font-weight: 500;
+  transition: color .2s ease-in-out;
 }
 
 .arrow-right {
   flex-shrink: 0;
   position: relative;
   overflow: visible;
+}
+
+.arrow-right path {
+  transition: all .2s ease-in-out;
+}
+
+.button:hover {
+  background: #212121;
+}
+
+.button:hover span {
+  color: #fff;
+}
+
+.button:hover .arrow-right path {
+  stroke: #fff;
 }
 
 .image {
