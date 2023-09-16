@@ -21,7 +21,9 @@ class SofaListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sofa
-        fields = ['id', 'name', 'short_description', 'price', 'sofa_type', 'first_image']
+        fields = ['id', 'name', 'short_description', 'price',
+                  'sofa_form', 'sofa_type', 'folding_mechanism',
+                  'first_image', 'order']
 
 
 class SofaDetailSerializer(serializers.ModelSerializer):

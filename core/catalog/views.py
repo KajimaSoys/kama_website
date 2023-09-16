@@ -9,11 +9,13 @@ from .serializers import (
 
 # Фильтры для Sofa
 class SofaFilter(django_filters.FilterSet):
+    sofa_form = django_filters.CharFilter(field_name="sofa_form")
     sofa_type = django_filters.CharFilter(field_name='sofa_type')
+    folding_mechanism = django_filters.CharFilter(field_name='folding_mechanism')
 
     class Meta:
         model = Sofa
-        fields = ['sofa_type']
+        fields = ['sofa_form', 'sofa_type', 'folding_mechanism']
 
 
 # Представление для списка диванов

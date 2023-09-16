@@ -90,7 +90,6 @@ export default {
       stages_block: {},
       delivery_block: {},
       contacts_block: {},
-      footer_block: {},
 
       popular_models: {},
       reviews: {},
@@ -119,7 +118,6 @@ export default {
             this.stages_block = receivedData.stages_block
             this.delivery_block = receivedData.delivery_block
             this.contacts_block = receivedData.contacts_block
-            this.footer_block = receivedData.footer_block
 
             console.log(response.data)
           })
