@@ -17,7 +17,7 @@
 
     <Delivery :delivery="this.delivery_block"/>
 
-    <Reviews :reviews="this.reviews" @popUpCall="popUpCall('review')"/>
+    <Reviews :reviews="this.reviews" @popUpCall="reviewPopup"/>
 
     <Questions :questions="this.questions"/><!--:questionsArr="this.questionsArr"-->
 
@@ -33,7 +33,7 @@
 
     <QuestionPopup :visible="questionPopUpVisible" @close="hidePopUp('question')"/>
 
-    <ReviewPopup :visible="reviewPopUpVisible" @close="hidePopUp('review')"/>
+    <ReviewPopup :visible="reviewPopUpVisible" :popup_review="this.popup_review" @close="hidePopUp('review')"/>
 
   </div>
 </template>
@@ -96,6 +96,8 @@ export default {
       reviews: {},
       questions: [],
 
+      popup_review: {},
+
       requestPopUpVisible: false,
       questionPopUpVisible: false,
       reviewPopUpVisible: false,
@@ -148,8 +150,6 @@ export default {
         this.requestPopUpVisible = true;
       } else if (target === 'question') {
         this.questionPopUpVisible = true;
-      } else if (target === 'review') {
-        this.reviewPopUpVisible = true;
       }
       document.body.style.overflow = "hidden";
     },
@@ -163,6 +163,12 @@ export default {
       }
       document.body.style.overflow = "";
     },
+
+    reviewPopup(review){
+      this.popup_review = review
+      this.reviewPopUpVisible = true;
+      document.body.style.overflow = "hidden";
+    }
 
   },
 

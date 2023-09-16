@@ -34,7 +34,7 @@
 
             <div class="review-text-wrapper">
               <div :class="{ 'clamped': !isExpanded[index] }" class="review-text" v-show="true" v-html="review.review"></div>
-              <div v-if="isTooLong[index]" @click="toggleExpand(index)" class="read-more">
+              <div v-if="isTooLong[index]" @click="togglePopup(review)" class="read-more">
                 Открыть полностью
               </div>
             </div>
@@ -79,6 +79,7 @@ export default {
       'reviews'
   ],
   emits: [
+      'popUpCall'
   ],
   data() {
     return {
@@ -94,19 +95,14 @@ export default {
       setTimeout(() => {
         const elements = this.$el.querySelectorAll('.review-text');
         elements.forEach((element, index) => {
-          console.log(element.scrollHeight)
-          console.log(element.clientHeight)
           this.isTooLong[index] = element.scrollHeight > element.clientHeight;
         });
-      }, 1000); // Например, задержка в 1 секунду
+      }, 1000);
     });
   },
   methods: {
-    toggleExpand(index) {
-      this.isExpanded[index] = !this.isExpanded[index];
-    },
-    expandReview(index) {
-      this.$set(this.isReviewExpanded, index, true);
+    togglePopup(review) {
+      this.$emit('popUpCall', review);
     },
   },
   setup() {
@@ -209,32 +205,6 @@ export default {
 .review-text {
   text-align: left;
   color: #484848;
-  font-size: 1.125rem;
-}
-
-
-.model-title {
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.info-container {
-  height: 10rem;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-}
-
-.model-description {
-  color: #484848;
-  font-size: 1.125rem;
-  flex: 2;
-  max-width: 80%;
-}
-
-.model-price {
-  flex: 1;
-  color: #212121;
   font-size: 1.125rem;
 }
 
