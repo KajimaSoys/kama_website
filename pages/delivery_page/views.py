@@ -8,14 +8,20 @@ from .serializers import (
     PaymentBlockSerializer
 )
 
+from pages.main_page.models import HeaderBlock
+from pages.main_page.serializers import HeaderBlockSerializer
+
 
 def aggregate_data(request):
     try:
         response_data = {}
 
+        header_block = HeaderBlock.objects.first()
         delivery_block = DeliveryBlock.objects.first()
         payment_block = PaymentBlock.objects.first()
 
+        if header_block:
+            response_data["header_block"] = HeaderBlockSerializer(header_block).data
         if delivery_block:
             response_data['delivery_block'] = DeliveryBlockSerializer(delivery_block).data
         if payment_block:

@@ -209,7 +209,7 @@ export default {
 
   },
 
-  beforeMount() {
+  created() {
     this.getPageData()
     this.getObjectsData()
   },
