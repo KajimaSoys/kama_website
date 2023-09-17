@@ -58,12 +58,16 @@ def aggregate_data(request):
         return JsonResponse({'error': str(e)}, status=400)
 
 
-def get_header_data(request):
+def get_layout_data(request):
     try:
         response_data = {}
         header_block = HeaderBlock.objects.first()
+        contacts_block = ContactsBlock.objects.first()
+
         if header_block:
             response_data['header_block'] = HeaderBlockSerializer(header_block).data
+        if contacts_block:
+            response_data['contacts_block'] = ContactsBlockSerializer(contacts_block).data
 
         return JsonResponse(response_data, safe=False)
 

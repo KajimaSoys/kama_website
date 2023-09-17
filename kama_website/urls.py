@@ -31,7 +31,7 @@ urlpatterns = [
 
     path('api/v1/main_page/', main_page_views.aggregate_data, name='main_page'),
     path('api/v1/delivery_page/', delivery_page_views.aggregate_data, name='delivery_page'),
-    path('api/v1/get_header/', main_page_views.get_header_data, name='get_header'),
+    path('api/v1/get_layout/', main_page_views.get_layout_data, name='get_header'),
 
     path('api/v1/service/', service_views.aggregate_data, name='service'),
 

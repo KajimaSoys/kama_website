@@ -17,6 +17,9 @@
     <OtherVariants
         v-if="this.sofa.other_variants && this.sofa.other_variants.length > 0"
         :otherVariants="this.sofa.other_variants"
+        :sofaForm="this.sofa.sofa_form"
+        :sofaType="this.sofa.sofa_type"
+        :foldingMechanism="this.sofa.folding_mechanism"
     />
 
     <OwnConfiguration
@@ -27,7 +30,15 @@
         v-if="this.sofa.reviews && this.sofa.reviews.length > 0"
         :reviews="this.sofa.reviews"
         @popUpCall="reviewPopup"
+        class="unique-title"
     />
+
+    <div class="union">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1716" height="656" viewBox="0 0 1716 656" fill="none">
+        <path d="M1147.71 186.541C1197.49 54.9356 1331.2 -19.4501 1473.83 4.86829C1615.71 29.1867 1715.26 142.911 1716 281.669V656H1496.86V282.384C1496.86 228.741 1454.51 215.866 1435.94 213.005C1418.11 209.429 1373.54 207.998 1354.23 258.066L1206.37 656H973.279L1147.71 186.541Z" fill="white"/>
+        <path d="M475.371 80.5768C617.257 104.18 716.8 218.62 716.8 357.378V656H498.4V357.378C498.4 304.449 456.057 290.859 437.486 287.998C419.657 285.137 375.086 283.707 355.772 333.774L200.598 656H-33.0283L150 260.819C199.029 130.644 332.743 56.2584 475.371 80.5768Z" fill="white"/>
+      </svg>
+    </div>
 
     <Footer
         :footer="this.header_block"
@@ -143,5 +154,14 @@ export default {
 </script>
 
 <style scoped>
+.unique-title :deep(h2.title) {
+  text-align: left;
+}
 
+.union {
+    bottom: -5rem;
+    z-index: -1;
+    position: relative;
+    height: 26rem;
+}
 </style>

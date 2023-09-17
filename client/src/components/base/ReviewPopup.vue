@@ -100,7 +100,7 @@ export default {
 
 .popup {
   background-color: white;
-  padding: 4rem 2rem;
+  padding: 3rem 3rem;
   position: relative;
   z-index: 101;
 }

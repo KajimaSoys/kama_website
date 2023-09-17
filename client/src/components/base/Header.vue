@@ -6,11 +6,11 @@
       </a>
 
       <div class="navigate-links">
-        <a>Каталог</a>
-        <a>Доставка и оплата</a>
-        <a>О компании</a>
-        <a>Контакты</a>
-        <a>Отзывы</a>
+        <router-link :to="{ name: 'catalog' }">Каталог</router-link>
+        <router-link :to="{ name: 'delivery' }">Доставка и оплата</router-link>
+        <a> О компании</a>
+        <a> Контакты</a>
+        <router-link :to="{ name: 'reviews' }"> Отзывы</router-link>
       </div>
 
       <div class="number">
@@ -91,6 +91,11 @@ export default {
   flex-direction: row;
   align-items: center;
   gap: 0.75rem;
+}
+
+a {
+  text-decoration: none;
+  color: #484848;;
 }
 
 @media screen and (max-width: 1200px){
