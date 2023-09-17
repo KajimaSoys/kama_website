@@ -1,39 +1,78 @@
 <template>
   <div class="main-view">
 
-    <Header :header="this.header_block" @popUpCall="popUpCall('request')"/>
+    <Header
+        :header="this.header_block"
+        @popUpCall="popUpCall('request')"
+    />
 
-    <Main :main="this.main_block" @popUpCall="popUpCall('request')"/>
+    <Main
+        :main="this.main_block"
+        @popUpCall="popUpCall('request')"
+    />
 
-    <Popular :popular_models="this.popular_models"/>
+    <Popular
+        :popular_models="this.popular_models"
+    />
 
-    <About :about="this.about_block"/>
+    <About
+        :about="this.about_block"
+    />
 
-    <Why :why="this.why_block"/>
+    <Why
+        :why="this.why_block"
+    />
 
-    <Request :request="this.request_block" @popUpCall="popUpCall('request')"/>
+    <Request
+        :request="this.request_block"
+        @popUpCall="popUpCall('request')"
+    />
 
-    <Stages :stages="this.stages_block"/>
+    <Stages
+        :stages="this.stages_block"
+    />
 
-    <Delivery :delivery="this.delivery_block"/>
+    <Delivery
+        :delivery="this.delivery_block"
+    />
 
-    <Reviews :reviews="this.reviews" @popUpCall="reviewPopup"/>
+    <Reviews
+        :reviews="this.reviews"
+        @popUpCall="reviewPopup"
+    />
 
-    <Questions :questions="this.questions"/><!--:questionsArr="this.questionsArr"-->
+    <Questions
+        :questions="this.questions"
+    /><!--:questionsArr="this.questionsArr"-->
 
-    <AddQuestions @popUpCall="popUpCall('question')"/>
+    <AddQuestions
+        @popUpCall="popUpCall('question')"
+    />
 
-    <Contacts :contacts="this.contacts_block"/>
+    <Contacts
+        :contacts="this.contacts_block"
+    />
 
-    <Footer :footer="this.header_block" @popUpCall="popUpCall('request')"/>
+    <Footer
+        :footer="this.header_block"
+        @popUpCall="popUpCall('request')"
+    />
 
-<!--    <VideoPlayer :visible="videoVisible" :videoId="videoId" @close="hideVideo" />-->
+    <RequestPopup
+        :visible="requestPopUpVisible"
+        @close="hidePopUp('request')"
+    />
 
-    <RequestPopup :visible="requestPopUpVisible" @close="hidePopUp('request')" />
+    <QuestionPopup
+        :visible="questionPopUpVisible"
+        @close="hidePopUp('question')"
+    />
 
-    <QuestionPopup :visible="questionPopUpVisible" @close="hidePopUp('question')"/>
-
-    <ReviewPopup :visible="reviewPopUpVisible" :popup_review="this.popup_review" @close="hidePopUp('review')"/>
+    <ReviewPopup
+        :visible="reviewPopUpVisible"
+        :popup_review="this.popup_review"
+        @close="hidePopUp('review')"
+    />
 
   </div>
 </template>

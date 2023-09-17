@@ -7,7 +7,7 @@
           <div class="review">
             <div class="author">
               <div class="image-container">
-                <img :src="`${this.backendURL}${this.review.author_photo}`" alt="" class="image"/>
+                <img :src="`${this.backendURL}${this.formattedLink(this.review.author_photo)}`" alt="" class="image"/>
               </div>
 
               <div class="author-name">
@@ -16,8 +16,8 @@
             </div>
 
             <div class="review-images">
-              <a v-for="photo in this.review.photos" class="image-container" :href="`${this.backendURL}${photo.photo}`" target="_blank">
-                <img :src="`${this.backendURL}${photo.photo}`" alt="" class="image"/>
+              <a v-for="photo in this.review.photos" class="image-container" :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+                <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="" class="image"/>
               </a>
             </div>
 
@@ -63,7 +63,16 @@ export default {
     popup_review(newVal){
       this.review = newVal
     }
-  }
+  },
+  computed: {
+    formattedLink(){
+      return (link) => {
+        let newLink = link.replace('http://127.0.0.1:8000', '');
+        newLink = newLink.replace('https://kamamebel.com', '');
+        return newLink;
+      };
+    }
+  },
 }
 </script>
 

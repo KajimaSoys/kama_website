@@ -1,7 +1,7 @@
 <template>
   <div class="catalog-component">
     <div class="model-list" v-if="filteredSofas.length">
-      <div class="model" v-for="sofa in filteredSofas">
+      <router-link :to="{ name: 'product', params: { id: sofa.id } }"  class="model" v-for="sofa in filteredSofas">
         <div class="image-container">
           <img :src="`${this.backendURL}${sofa.first_image.image}`" alt="" class="image"/>
         </div>
@@ -18,7 +18,7 @@
             {{ sofa.name }}
           </h2>
         </div>
-      </div>
+      </router-link>
     </div>
 
     <div class="no-model" v-else>

@@ -12,13 +12,13 @@
         :pagination="{ el: '.swiper-pagination-2', clickable: true, bulletClass: 'swiper-pagination-bullet', bulletActiveClass: 'swiper-pagination-bullet-active' }"
       >
         <swiper-slide
-            v-for="(review, index) in this.receivedReviews"
+            v-for="(review, index) in this.reviews"
             :key="index"
         >
           <div class="review">
             <div class="author">
               <div class="image-container">
-                <img :src="`${this.backendURL}${review.author_photo}`" alt="" class="image"/>
+                <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="" class="image"/>
               </div>
 
               <div class="author-name">
@@ -27,8 +27,8 @@
             </div>
 
             <div class="review-images">
-              <a v-for="photo in review.photos" class="image-container" :href="`${this.backendURL}${photo.photo}`" target="_blank">
-                <img :src="`${this.backendURL}${photo.photo}`" alt="" class="image"/>
+              <a v-for="photo in review.photos" class="image-container" :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+                <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="" class="image"/>
               </a>
             </div>
 
@@ -42,7 +42,7 @@
           </div>
         </swiper-slide>
       </swiper>
-      <div class="swiper-controls">
+      <div :class="{'swiper-controls': true, 'hidden': this.reviews.length <= 2}">
         <div class="swiper-button-prev swiper-button-prev-2">
           <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.0973 0.156443L0.183064 8.53296L0.182131 8.53401L0.172611 8.54412C-0.0572777 8.78808 -0.0578003 9.2114 0.172625 9.456L0.181719 9.46565L0.182583 9.46662L8.09723 17.8436C8.29484 18.0527 8.58788 18.0522 8.78497 17.8416C9.01494 17.5958 9.01372 17.1747 8.78313 16.9306L1.86931 9.61291H19.4835C19.7116 9.61291 20 9.39746 20 9.00001C20 8.60256 19.7116 8.3871 19.4835 8.3871H1.86919L8.78325 1.06935C9.01382 0.825229 9.01501 0.404166 8.78505 0.158436C8.58785 -0.0522866 8.29489 -0.0526697 8.0973 0.156443Z" fill="black"/>
@@ -119,7 +119,13 @@ export default {
     };
   },
   computed: {
-
+    formattedLink(){
+      return (link) => {
+        let newLink = link.replace('http://127.0.0.1:8000', '');
+        newLink = newLink.replace('https://kamamebel.com', '');
+        return newLink;
+      };
+    }
   },
   watch: {
     reviews(newVal) {
@@ -263,6 +269,10 @@ svg path{
 
 .swiper-pagination-bullets.swiper-pagination-horizontal{
   width: inherit;
+  visibility: hidden;
+}
+
+.hidden {
   visibility: hidden;
 }
 

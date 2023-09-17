@@ -1,16 +1,30 @@
 <template>
   <div class="catalog-view">
-    <Header :header="this.header_block" @popUpCall="popUpCall('request')"/>
+    <Header
+        :header="this.header_block"
+        @popUpCall="popUpCall()"
+    />
 
     <h1 class="title">Каталог</h1>
 
-    <Filters :filters="this.filters"/>
+    <Filters
+        :filters="this.filters"
+    />
 
-    <Catalog :sofas="this.sofas" :filters="this.filters"/>
+    <Catalog
+        :sofas="this.sofas"
+        :filters="this.filters"
+    />
 
-    <Footer :footer="this.header_block" @popUpCall="popUpCall('request')"/>
+    <Footer
+        :footer="this.header_block"
+        @popUpCall="popUpCall()"
+    />
 
-    <RequestPopup :visible="requestPopUpVisible" @close="hidePopUp('request')" />
+    <RequestPopup
+        :visible="requestPopUpVisible"
+        @close="hidePopUp()"
+    />
 
   </div>
 </template>
@@ -61,7 +75,7 @@ export default {
   methods: {
     async getPageData(){
       await axios
-          .get('api/v1/get_header/')
+          .get('api/v1/get_layout/')
           .then( response => {
             this.header_block = response.data.header_block
             console.log(response.data)
@@ -90,22 +104,12 @@ export default {
           })
     },
 
-    popUpCall(target) {
-      if (target === 'request'){
-        this.requestPopUpVisible = true;
-      } else if (target === 'question') {
-        this.questionPopUpVisible = true;
-      }
+    popUpCall() {
+      this.requestPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
-    hidePopUp(target) {
-      if (target === 'request'){
-        this.requestPopUpVisible = false;
-      } else if (target === 'question') {
-        this.questionPopUpVisible = false;
-      } else if (target === 'review') {
-        this.reviewPopUpVisible = false;
-      }
+    hidePopUp() {
+      this.requestPopUpVisible = false;
       document.body.style.overflow = "";
     },
   },

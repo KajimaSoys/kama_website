@@ -14,7 +14,7 @@
       </div>
 
       <div class="number">
-        <img src="icons/phone.svg" alt="" width="18" height="18">
+        <img src="/icons/phone.svg" alt="" width="18" height="18">
         <span>{{ this.header.number }}</span>
       </div>
     </div>

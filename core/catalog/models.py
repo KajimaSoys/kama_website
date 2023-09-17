@@ -42,11 +42,11 @@ class Sofa(models.Model):
     height = models.FloatField(verbose_name="Высота")
     width = models.FloatField(verbose_name="Ширина")
     depth = models.FloatField(verbose_name="Глубина")
-    seat_depth = models.FloatField(verbose_name="Глубина посадочного места", blank=True)
-    back_height = models.FloatField(verbose_name="Высота спинки", blank=True)
-    armrest_height = models.FloatField(verbose_name="Высота подлокотников", blank=True)
-    seat_height = models.FloatField(verbose_name="Высота посадочного места", blank=True)
-    legs_height = models.FloatField(verbose_name="Высота ножек", blank=True)
+    seat_depth = models.FloatField(verbose_name="Глубина посадочного места", blank=True, null=True)
+    back_height = models.FloatField(verbose_name="Высота спинки", blank=True, null=True)
+    armrest_height = models.FloatField(verbose_name="Высота подлокотников", blank=True, null=True)
+    seat_height = models.FloatField(verbose_name="Высота посадочного места", blank=True, null=True)
+    legs_height = models.FloatField(verbose_name="Высота ножек", blank=True, null=True)
 
     # Четвертая группа полей
     other_variants = models.ManyToManyField('self', blank=True, verbose_name="Другие варианты исполнения")
