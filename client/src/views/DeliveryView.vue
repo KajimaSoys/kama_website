@@ -46,6 +46,7 @@ import axios from "axios";
 
 export default {
   name: "DeliveryView",
+  inject: ['backendURL'],
   components: {
     Header,
     Delivery,
@@ -67,7 +68,7 @@ export default {
   methods: {
     async getPageData(){
       await axios
-          .get('api/v1/delivery_page/')
+          .get(`${this.backendURL}/api/v1/delivery_page/`)
           .then( response => {
             let receivedData = response.data
 

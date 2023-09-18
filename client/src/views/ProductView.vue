@@ -76,6 +76,7 @@ import ReviewPopup from "../components/base/ReviewPopup.vue";
 
 export default {
   name: "ProductView",
+  inject: ['backendURL'],
   components: {
     Header,
     ImageSlider,
@@ -109,7 +110,7 @@ export default {
   methods: {
     async getPageData(){
       await axios
-          .get('api/v1/get_layout/')
+          .get(`${this.backendURL}/api/v1/get_layout/`)
           .then( response => {
             this.header_block = response.data.header_block
             this.contacts = response.data.contacts_block
@@ -122,7 +123,7 @@ export default {
 
     async getObjectsData(){
       await axios
-          .get(`api/v1/sofas/${this.$route.params.id}/`)
+          .get(`${this.backendURL}/api/v1/sofas/${this.$route.params.id}/`)
           .then( response => {
             this.sofa = response.data
             console.log(response.data)

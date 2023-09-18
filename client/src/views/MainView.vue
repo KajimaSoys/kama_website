@@ -145,7 +145,7 @@ export default {
   methods: {
     async getPageData(){
       await axios
-          .get('api/v1/main_page/')
+          .get(`${this.backendURL}/api/v1/main_page/`)
           .then( response => {
             let receivedData = response.data
 
@@ -167,7 +167,7 @@ export default {
 
     async getObjectsData(){
       await axios
-          .get('api/v1/service/')
+          .get(`${this.backendURL}/api/v1/service/`)
           .then( response => {
             let receivedData = response.data
 

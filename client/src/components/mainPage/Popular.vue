@@ -174,13 +174,12 @@ export default {
   align-items: flex-start;
   margin-top: 50px;
   flex-direction: row;
-  gap: 30px;
+  gap: 3rem;
 }
 
 
 .swiper-button-next,
 .swiper-button-prev {
-  width: 2.25rem;
   height: 50px;
   display: flex;
   justify-content: center;

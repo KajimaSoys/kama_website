@@ -75,7 +75,7 @@ export default {
   methods: {
     async getPageData(){
       await axios
-          .get('api/v1/get_layout/')
+          .get(`${this.backendURL}/api/v1/get_layout/`)
           .then( response => {
             this.header_block = response.data.header_block
             console.log(response.data)
@@ -87,7 +87,7 @@ export default {
 
     async getObjectsData(){
       await axios
-          .get('api/v1/sofas/')
+          .get(`${this.backendURL}/api/v1/sofas/`)
           .then( response => {
             this.sofas = response.data
             console.log(response.data)

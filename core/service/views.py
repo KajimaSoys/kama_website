@@ -36,6 +36,22 @@ def aggregate_data(request):
         return JsonResponse({'error': str(e)}, status=400)
 
 
+def get_reviews(request):
+    try:
+        reviews = Review.objects.select_related('sofa').all()
+
+        reviews_data = ReviewSerializer(reviews, many=True).data
+
+        aggregated_data = {
+            'reviews': reviews_data,
+        }
+
+        return JsonResponse(aggregated_data, safe=False)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+
 @api_view(['POST'])
 def create_order(request):
     if request.method == 'POST':

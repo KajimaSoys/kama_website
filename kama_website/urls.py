@@ -34,6 +34,8 @@ urlpatterns = [
     path('api/v1/get_layout/', main_page_views.get_layout_data, name='get_header'),
 
     path('api/v1/service/', service_views.aggregate_data, name='service'),
+    path('api/v1/reviews/', service_views.get_reviews, name='reviews'),
+
 
     path('api/v1/sofas/', catalog_views.SofaListView.as_view(), name='sofa_list'),
     path('api/v1/sofas/<int:pk>/', catalog_views.SofaDetailView.as_view(), name='sofa_detail'),
