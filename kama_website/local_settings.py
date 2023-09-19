@@ -9,6 +9,7 @@ SECRET_KEY = 'django-insecure-^w0+)&&ycaex5gk3ub9t7u+&bc826^c-jm7$0+w8842wr7$cuc
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",# from nginx in prod
     "http://localhost:5173",# from vite in dev
+    "http://127.0.0.1:5173",
     "http://localhost:4173"
 ]
 

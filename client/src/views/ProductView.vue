@@ -105,7 +105,14 @@ export default {
 
   created() {
       this.getPageData()
-      this.getObjectsData()
+      this.getObjectsData(this.$route.params.id)
+  },
+  async beforeRouteUpdate(to, from, next) {
+    if (to.params.id !== from.params.id) {
+      await this.getObjectsData(to.params.id);
+      this.scrollToZero();
+    }
+    next();
   },
   mounted() {
     this.scrollToZero()
@@ -124,9 +131,9 @@ export default {
           })
     },
 
-    async getObjectsData(){
+    async getObjectsData(id){
       await axios
-          .get(`${this.backendURL}/api/v1/sofas/${this.$route.params.id}/`)
+          .get(`${this.backendURL}/api/v1/sofas/${id}/`)
           .then( response => {
             this.sofa = response.data
             console.log(response.data)
