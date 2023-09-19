@@ -321,26 +321,18 @@ input[type="text"]:focus::placeholder, input[type="tel"]:focus::placeholder {
 }
 
 .popup-acceptance a{
-  color: #3a3a3a;
+  color: #000000;
   position: relative;
-  text-decoration: none;
+  text-decoration: underline;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+
 }
 
-.popup-acceptance a:before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  right: 50%;
-  background: #3a3a3a;
-  height: 1px;
-  transition: all .4s ease;
+.popup-acceptance a:hover {
+  opacity: 0.5;
 }
 
-.popup-acceptance a:hover:before {
-  left: 0;
-  right: 0;
-}
 
 :deep(.el-input__wrapper) {
   padding: 10px 21px!important;

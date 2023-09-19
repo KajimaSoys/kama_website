@@ -125,27 +125,12 @@ a {
   color: #484848;
   cursor: pointer;
   position: relative;
-  transition: color 0.4s ease;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .menu-item:hover{
-  color: #000;
-}
-
-.menu-item:before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  right: 50%;
-  background: #000;
-  height: 2px;
-  transition: all .4s ease;
-}
-
-.menu-item:hover:before {
-  left: 0;
-  right: 0;
+  opacity: 0.5;
 }
 
 .number:hover span {
