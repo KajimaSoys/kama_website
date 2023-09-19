@@ -44,10 +44,8 @@ export default {
 
 <style scoped>
 .about-component {
-  margin-top: 12.5rem;
-  //margin-right: 10.5rem;
-  //margin-left: 10.5rem;
-  //margin-bottom: 0;
+  margin-top: 6.25rem;
+  padding-top: 6.25rem;
   height: 52.75rem;
   position: relative;
 }
@@ -56,7 +54,7 @@ export default {
   position: absolute;
   z-index: 0;
   left: 4.94rem;
-  top: 2.69rem;
+  top: 8.94rem;
 }
 
 .content{

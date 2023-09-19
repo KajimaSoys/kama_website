@@ -16,25 +16,28 @@
             v-for="(model, index) in this.popular_models"
             :key="index"
         >
-          <div class="model">
-            <div class="image-container">
-              <img :src="`${this.backendURL}${model.sofa.first_image.image}`" alt="" class="image"/>
-            </div>
-
-            <div class="model-title">
-              {{ model.sofa.name }}
-            </div>
-
-            <div class="info-container">
-
-              <div class="model-description" v-html="model.sofa.short_description">
-              </div>
-              <div class="model-price">
-                {{ this.formattedPrice(model.sofa.price) }}
+          <router-link :to="{ name: 'product', params: { id: model.sofa.id } }" class="model">
+            <div class="background">
+              <div class="image-container">
+                <img :src="`${this.backendURL}${model.sofa.first_image.image}`" alt="" class="image"/>
               </div>
 
+              <div class="model-title">
+                {{ model.sofa.name }}
+              </div>
+
+              <div class="info-container">
+
+                <div class="model-description" v-html="model.sofa.short_description">
+                </div>
+                <div class="model-price">
+                  {{ this.formattedPrice(model.sofa.price) }}
+                </div>
+
+              </div>
             </div>
-          </div>
+
+          </router-link>
         </swiper-slide>
       </swiper>
       <div class="swiper-controls">
@@ -119,11 +122,15 @@ export default {
 
 .model {
   cursor: pointer;
+  text-decoration: none;
+}
+
+.background {
   background: #F8F8F8;
   transition: background-color 0.2s ease-in-out;
 }
 
-.model:hover {
+.model:hover .background{
   background: #fff;
 }
 
@@ -146,6 +153,7 @@ export default {
 .model-title {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
+  color: #000;
 }
 
 .info-container {

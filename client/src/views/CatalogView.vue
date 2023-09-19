@@ -68,9 +68,12 @@ export default {
     }
   },
 
-  beforeMount() {
+  created() {
       this.getPageData()
       this.getObjectsData()
+  },
+  mounted() {
+    this.scrollToZero()
   },
   methods: {
     async getPageData(){
@@ -112,6 +115,9 @@ export default {
       this.requestPopUpVisible = false;
       document.body.style.overflow = "";
     },
+    scrollToZero(){
+      document.documentElement.scrollTop = 0;
+    }
   },
 }
 </script>

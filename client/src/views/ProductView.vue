@@ -107,6 +107,9 @@ export default {
       this.getPageData()
       this.getObjectsData()
   },
+  mounted() {
+    this.scrollToZero()
+  },
   methods: {
     async getPageData(){
       await axios
@@ -150,6 +153,9 @@ export default {
       }
       document.body.style.overflow = "";
     },
+    scrollToZero(){
+      document.documentElement.scrollTop = 0;
+    }
   },
 }
 </script>

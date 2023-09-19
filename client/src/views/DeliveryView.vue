@@ -97,11 +97,15 @@ export default {
       this.popup_review = review
       this.reviewPopUpVisible = true;
       document.body.style.overflow = "hidden";
+    },
+    scrollToZero(){
+      document.documentElement.scrollTop = 0;
     }
   },
 
   created() {
     this.getPageData()
+    this.scrollToZero()
   },
 }
 </script>

@@ -17,6 +17,7 @@
 
     <About
         :about="this.about_block"
+        id="about_block"
     />
 
     <Why
@@ -51,6 +52,7 @@
 
     <Contacts
         :contacts="this.contacts_block"
+        id="contacts_block"
     />
 
     <Footer
@@ -205,6 +207,10 @@ export default {
       this.popup_review = review
       this.reviewPopUpVisible = true;
       document.body.style.overflow = "hidden";
+    },
+
+    scrollToZero(){
+      document.documentElement.scrollTop = 0;
     }
 
   },
@@ -212,6 +218,7 @@ export default {
   created() {
     this.getPageData()
     this.getObjectsData()
+    this.scrollToZero()
   },
 
 }

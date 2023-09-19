@@ -72,7 +72,8 @@ export default {
 
 <style scoped>
 .contacts-component {
-  margin-top: 12.5rem;
+  margin-top: 6.25rem;
+  padding-top: 6.25rem;
   margin-bottom: 12.5rem;
   position: relative;
 }
