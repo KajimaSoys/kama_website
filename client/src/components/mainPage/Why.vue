@@ -169,26 +169,39 @@ export default {
 <style scoped>
 .why-component {
   margin-top: 12.5rem;
-  margin-left: 23rem;
-  margin-right: 8.36rem;
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .why-max {
-
+  max-width: 76rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .block-title {
-  flex: 2;
+}
+
+.block-title h2 {
+  position: sticky; /* Add this line */
+  top: 8rem;
 }
 
 .content {
-  flex: 3;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.flex-row {
+  position: relative;
 }
 
 h2, h3 {
@@ -204,6 +217,8 @@ h2, h3 {
 
 .block-right {
   height: 31.75rem;
+  position: absolute;
+  right: -14.5rem;
 }
 
 .component {
@@ -239,14 +254,78 @@ h2, h3 {
 }
 
 @media screen and (max-width: 1200px) {
-
+  .description {
+    font-size: 1rem;
+  }
 }
 
 @media screen and (max-width: 990px) {
+  .why-component {
+    width: auto;
+  }
 
+  .why-max {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .block-title {
+    text-align: center;
+    position: relative;
+    top: auto;
+  }
+
+  .block-left {
+    width: 100%;
+  }
+
+  .block-right {
+    display: none;
+  }
+
+  .component {
+    width: auto;
+  }
 }
 
 @media screen and (max-width: 640px) {
+  .component {
+    padding: 2rem 3.75rem 2rem 4rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  h3 {
+    line-height: 1.3rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+    line-height: 1.3125rem;
+    width: auto;
+  }
+
+  .block-left {
+    height: auto;
+  }
+
+  .icon-block {
+    width: 2.625rem;
+    height: 2.625rem;
+    top: 2rem;
+  }
+
+  .icon {
+    left: 0.665rem;
+    top: 0.665rem;
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
 
 }
 

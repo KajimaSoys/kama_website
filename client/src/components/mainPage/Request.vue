@@ -1,44 +1,49 @@
 <template>
   <div class="request-component">
-    <div class="content">
-      <div class="icon-block">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <path d="M18 10V18L22.5 21M18 33C9.71573 33 3 26.2843 3 18C3 9.71573 9.71573 3 18 3C26.2843 3 33 9.71573 33 18C33 26.2843 26.2843 33 18 33Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h2>
-        {{ this.request.title }}
-      </h2>
-      <div class="description">
-        {{ this.request.description }}
+    <div class="request-max">
+      <div class="content">
+        <div class="icon-block">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path
+                d="M18 10V18L22.5 21M18 33C9.71573 33 3 26.2843 3 18C3 9.71573 9.71573 3 18 3C26.2843 3 33 9.71573 33 18C33 26.2843 26.2843 33 18 33Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2>
+          {{ this.request.title }}
+        </h2>
+        <div class="description">
+          {{ this.request.description }}
+        </div>
+
+        <div class="button" @click="this.$emit('popUpCall')">
+          <span>Оставить заявку</span>
+          <svg
+              class="arrow-right"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+                d="M3 11.9999H21M21 11.9999L14 5M21 11.9999L14 18.9999"
+                stroke="#212121"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+          </svg>
+        </div>
       </div>
 
-      <div class="button" @click="this.$emit('popUpCall')">
-        <span>Оставить заявку</span>
-        <svg
-          class="arrow-right"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M3 11.9999H21M21 11.9999L14 5M21 11.9999L14 18.9999"
-            stroke="#212121"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
+      <img :src="`${this.backendURL}${this.request.image}`" alt="" class="image"/>
     </div>
 
-    <img :src="`${this.backendURL}${this.request.image}`" alt="" class="image"/>
 
-<!--    <div class="background">-->
+    <!--    <div class="background">-->
 
-<!--    </div>-->
+    <!--    </div>-->
 
   </div>
 </template>
@@ -48,24 +53,32 @@ export default {
   name: "Request",
   inject: ['backendURL'],
   props: [
-      'request'
+    'request'
   ],
   emits: [
-      'popUpCall'
+    'popUpCall'
   ],
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 
 <style scoped>
 .request-component {
-  margin-top: 18.6rem;
+  margin-top: 12.5rem;
   position: relative;
   height: 41.0625rem;
   background-color: #2A2B2D;
   z-index: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.request-max {
+  max-width: 74rem;
+  width: 100%;
+  padding: 0 1rem 0 1rem;
+  display: flex;
+  flex-direction: row;
 }
 
 .background {
@@ -76,8 +89,6 @@ export default {
 
 .content {
   padding-top: 5rem;
-  margin-left: 23rem;
-  margin-right: 23rem;
 }
 
 .icon-block {
@@ -97,13 +108,13 @@ export default {
 h2 {
   color: #FFF;
   margin-bottom: 2rem;
-  width: 60%;
+  width: 100%;
 }
 
 .description {
   color: #FFF;
   font-size: 1.125rem;
-  width: 35%;
+  width: 60%;
 }
 
 
@@ -153,27 +164,95 @@ h2 {
 }
 
 .image {
-  position: absolute;
+  position: relative;
   width: 28.18175rem;
   height: 39.91675rem;
   transform: rotate(-4deg);
-  right: 23rem;
-  bottom: -13rem;
+  bottom: -16rem;
+
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1200px) {
+  .request-component {
+    margin-top: 9.5rem;
+  }
 
+  h2 {
+    width: 80%;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .image {
+    bottom: -9rem;
+    right: 2rem;
+  }
 }
 
 @media screen and (max-width: 990px) {
+  .request-component {
+    margin-top: 7.5rem;
+  }
 
+  .request-max {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content {
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .description {
+    width: 70%;
+    text-align: center;
+  }
+
+  .button {
+    height: 3.5rem;
+  }
+
+  .image {
+    width: 20rem;
+    height: 28rem;
+    bottom: -5rem;
+    right: auto;
+  }
 }
 
 @media screen and (max-width: 640px) {
+  .request-component {
+    margin-top: 6.25rem;
+  }
 
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+    width: 90%;
+  }
+
+  .image {
+    width: 16.5rem;
+    bottom: -4rem;
+  }
 }
 
 @media screen and (max-width: 360px) {
-
+  .button {
+    width: 75%;
+  }
 }
 </style>

@@ -6,7 +6,9 @@ class HeaderBlock(models.Model):
     Description of HeaderBlock Model of Main Page App
     """
 
-    logo = models.FileField(verbose_name='Лого', upload_to='main_page/header/', max_length=500)
+    logo = models.FileField(verbose_name='Логотип - темный', upload_to='main_page/header/', max_length=500)
+    logo_light = models.FileField(verbose_name='Логотип - светлый', upload_to='main_page/header/', max_length=500)
+
     number = models.CharField(verbose_name='Номер компании', max_length=255)
 
     def __str__(self):
