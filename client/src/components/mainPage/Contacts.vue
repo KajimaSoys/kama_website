@@ -147,6 +147,10 @@ export default {
   bottom: -32rem;
 }
 
+.union svg {
+  width: 100%;
+}
+
 @media screen and (max-width: 1200px) {
   .contacts-component {
     margin-top: 4.75rem;
@@ -208,6 +212,7 @@ export default {
   .content {
     flex-direction: column;
     align-items: center;
+    height: 50rem;
   }
 
   .title, .number, .mail {

@@ -129,7 +129,29 @@ h2 {
   align-items: center;
   position: relative;
   cursor: pointer;
-  transition: background-color .2s ease-in-out;
+  transition: background-color 0.5s ease;
+}
+
+.button:hover {
+  background: #21212100;
+}
+
+.button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background: #212121;
+  z-index: 0;
+  clip-path: inset(-1% 100% -1% 0);
+  transition: clip-path 0.5s ease;
+}
+
+.button:hover:before {
+  clip-path: inset(-10% 0 0 -10%);
 }
 
 .button span {
@@ -139,6 +161,14 @@ h2 {
   position: relative;
   font-weight: 500;
   transition: color .2s ease-in-out;
+}
+
+.button:hover span {
+  color: #fff;
+}
+
+.button:hover .arrow-right path {
+  stroke: #fff;
 }
 
 .arrow-right {
@@ -151,17 +181,8 @@ h2 {
   transition: all .2s ease-in-out;
 }
 
-.button:hover {
-  background: #212121;
-}
 
-.button:hover span {
-  color: #fff;
-}
 
-.button:hover .arrow-right path {
-  stroke: #fff;
-}
 
 .image {
   position: relative;

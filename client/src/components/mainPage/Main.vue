@@ -137,9 +137,11 @@ h1 {
   top: -1.5rem;
 
   text-decoration: none;
+  transition: background-color 0.5s ease;
 }
 
 .button:hover {
+  background: #21212100;
 }
 
 .button:before {

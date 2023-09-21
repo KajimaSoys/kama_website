@@ -177,7 +177,7 @@ export default {
 }
 
 .model:hover .image {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .no-model {

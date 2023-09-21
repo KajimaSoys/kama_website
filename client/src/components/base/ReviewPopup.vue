@@ -1,41 +1,43 @@
 <template>
   <div class="review-popup-component">
-  <transition name="fade">
-    <div v-if="visible" class="popup-background" @click.self="close">
-      <div class="popup">
-        <div class="popup-max popup-content">
-          <div class="review">
-            <div class="author">
-              <div class="image-container">
-                <img :src="`${this.backendURL}${this.formattedLink(this.review.author_photo)}`" alt="" class="image"/>
+    <transition name="fade">
+      <div v-if="visible" class="popup-background" @click.self="close">
+        <div class="popup">
+          <div class="popup-max popup-content">
+            <div class="review">
+              <div class="author">
+                <div class="image-container">
+                  <img :src="`${this.backendURL}${this.formattedLink(this.review.author_photo)}`" alt="" class="image"/>
+                </div>
+
+                <div class="author-name">
+                  {{ this.review.author }}
+                </div>
               </div>
 
-              <div class="author-name">
-                {{ this.review.author }}
+              <div class="review-images">
+                <a v-for="photo in this.review.photos" class="image-container"
+                   :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+                  <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="" class="image"/>
+                </a>
               </div>
-            </div>
 
-            <div class="review-images">
-              <a v-for="photo in this.review.photos" class="image-container" :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
-                <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="" class="image"/>
-              </a>
-            </div>
+              <div class="review-text-wrapper">
+                <div class="review-text" v-show="true" v-html="this.review.review"></div>
+              </div>
 
-            <div class="review-text-wrapper">
-              <div class="review-text" v-show="true" v-html="this.review.review"></div>
             </div>
-
           </div>
-        </div>
 
-        <button class="close-btn" @click="close" ref="closePopUp">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M8 24L24 8M8 8L24 24" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+          <button class="close-btn" @click="close" ref="closePopUp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 24L24 8M8 8L24 24" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
   </div>
 </template>
 
@@ -44,11 +46,10 @@ export default {
   name: "ReviewPopup",
   inject: ['backendURL'],
   props: [
-      'popup_review',
-      'visible'
+    'popup_review',
+    'visible'
   ],
-  emits: [
-  ],
+  emits: [],
   data() {
     return {
       review: {}
@@ -60,12 +61,12 @@ export default {
     },
   },
   watch: {
-    popup_review(newVal){
+    popup_review(newVal) {
       this.review = newVal
     }
   },
   computed: {
-    formattedLink(){
+    formattedLink() {
       return (link) => {
         let newLink = link.replace('http://127.0.0.1:8000', '');
         newLink = newLink.replace('https://kamamebel.com', '');
@@ -81,6 +82,7 @@ export default {
 .fade-leave-active {
   transition: opacity 0.3s;
 }
+
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
@@ -116,15 +118,15 @@ export default {
   cursor: pointer;
 }
 
-.close-btn path{
+.close-btn path {
   transition: all 0.1s ease-in-out;
 }
 
-.close-btn:hover path{
+.close-btn:hover path {
   stroke: #000;
 }
 
-.popup-content{
+.popup-content {
   max-width: 50rem;
   width: 100%;
   display: flex;
@@ -180,5 +182,56 @@ export default {
   text-align: left;
   color: #484848;
   font-size: 1.125rem;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .popup-content {
+    max-width: 40rem;
+  }
+}
+
+@media screen and (max-width: 990px) {
+
+  .author-name {
+    font-size: 1.125rem;
+  }
+
+  .review-text {
+    font-size: 1rem;
+  }
+
+  .review {
+    gap: 1.5rem;
+  }
+
+  .popup-content {
+    max-width: 27.5rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .author-name {
+    font-size: 1rem;
+
+  }
+
+  .review-text {
+    font-size: 0.875rem;
+    line-height: 1.8rem;
+  }
+
+  .popup-content {
+    max-width: 19.5rem;
+  }
+
+  .author .image-container {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+
 }
 </style>
