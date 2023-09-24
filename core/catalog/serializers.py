@@ -23,13 +23,23 @@ class SofaListSerializer(serializers.ModelSerializer):
         model = Sofa
         fields = ['id', 'name', 'short_description', 'price',
                   'sofa_form', 'sofa_type', 'folding_mechanism',
-                  'first_image', 'order']
+                  'first_image', 'order', 'active']
 
 
 class SofaDetailSerializer(serializers.ModelSerializer):
     images = SofaImageSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
     other_variants = SofaListSerializer(many=True)
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        if "other_variants" in ret:
+            ret["other_variants"] = [
+                variant
+                for variant in ret["other_variants"]
+                if variant.get("active") == True
+            ]
+        return ret
 
     class Meta:
         model = Sofa
@@ -39,5 +49,5 @@ class SofaDetailSerializer(serializers.ModelSerializer):
             'height', 'width', 'depth', 'seat_depth',
             'back_height', 'armrest_height', 'seat_height',
             'legs_height', 'price',
-            'images', 'reviews', 'other_variants'
+            'images', 'reviews', 'other_variants', 'active'
         ]

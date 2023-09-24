@@ -30,13 +30,15 @@ class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(Sofa)
 class SofaAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = [
-        ("Основные характеристики", {'fields': ['name', 'working_name', 'description', 'short_description']}),
+        ("Основные характеристики", {'fields': ['name', 'working_name', 'description', 'short_description', 'active']}),
         ("Тип, Цвет и Цена", {'fields': ['sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'price']}),
         ("Размеры", {'fields': ['height', 'width', 'depth', 'seat_depth', 'back_height', 'armrest_height', 'seat_height', 'legs_height']}),
         ("Другие варианты", {'fields': ['other_variants']}),
     ]
 
-    list_display = ['name', 'working_name', 'sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'sizes', 'price', 'thumbnail']
+    list_display = ['name', 'working_name', 'sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'sizes', 'price', 'thumbnail', 'active']
+    list_editable = ['active', ]
+
     search_fields = ['name', 'working_name', 'color']
     list_filter = ['sofa_form', 'sofa_type', 'folding_mechanism']
 

@@ -12,6 +12,8 @@ class Sofa(models.Model):
     working_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Рабочее название")
     short_description = RichTextField(verbose_name="Короткое описание", help_text="Отображается в карточке дивана в каталоге")
     description = RichTextField(verbose_name="Описание", help_text="Отображается на странице дивана")
+    active = models.BooleanField(verbose_name="Опубликовано на сайте?", default=True)
+
 
     # Вторая группа полей
     SOFA_FORM_CHOICES = [

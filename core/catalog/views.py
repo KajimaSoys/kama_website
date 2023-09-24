@@ -20,7 +20,7 @@ class SofaFilter(django_filters.FilterSet):
 
 # Представление для списка диванов
 class SofaListView(generics.ListAPIView):
-    queryset = Sofa.objects.all().prefetch_related('images')
+    queryset = Sofa.objects.filter(active=True).prefetch_related('images')
     serializer_class = SofaListSerializer
     filter_backends = (django_filters.DjangoFilterBackend, filters.OrderingFilter)
     filterset_class = SofaFilter
@@ -28,5 +28,5 @@ class SofaListView(generics.ListAPIView):
 
 # Представление для детального описания дивана
 class SofaDetailView(generics.RetrieveAPIView):
-    queryset = Sofa.objects.all().prefetch_related('images', 'reviews', 'other_variants')
+    queryset = Sofa.objects.filter(active=True).prefetch_related('images', 'reviews', 'other_variants')
     serializer_class = SofaDetailSerializer
