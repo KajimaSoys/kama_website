@@ -137,4 +137,22 @@ export default {
   position: relative;
   height: 26rem;
 }
+
+@media screen and (max-width: 1200px) {
+  .union {
+    bottom: 2rem;
+    height: 20rem;
+  }
+
+  .union svg {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .union {
+    bottom: 5rem;
+    height: 17rem;
+  }
+}
 </style>
