@@ -13,8 +13,12 @@
 
     <div class="union">
       <svg xmlns="http://www.w3.org/2000/svg" width="1716" height="656" viewBox="0 0 1716 656" fill="none">
-        <path d="M1147.71 186.541C1197.49 54.9356 1331.2 -19.4501 1473.83 4.86829C1615.71 29.1867 1715.26 142.911 1716 281.669V656H1496.86V282.384C1496.86 228.741 1454.51 215.866 1435.94 213.005C1418.11 209.429 1373.54 207.998 1354.23 258.066L1206.37 656H973.279L1147.71 186.541Z" fill="white"/>
-        <path d="M475.371 80.5768C617.257 104.18 716.8 218.62 716.8 357.378V656H498.4V357.378C498.4 304.449 456.057 290.859 437.486 287.998C419.657 285.137 375.086 283.707 355.772 333.774L200.598 656H-33.0283L150 260.819C199.029 130.644 332.743 56.2584 475.371 80.5768Z" fill="white"/>
+        <path
+            d="M1147.71 186.541C1197.49 54.9356 1331.2 -19.4501 1473.83 4.86829C1615.71 29.1867 1715.26 142.911 1716 281.669V656H1496.86V282.384C1496.86 228.741 1454.51 215.866 1435.94 213.005C1418.11 209.429 1373.54 207.998 1354.23 258.066L1206.37 656H973.279L1147.71 186.541Z"
+            fill="white"/>
+        <path
+            d="M475.371 80.5768C617.257 104.18 716.8 218.62 716.8 357.378V656H498.4V357.378C498.4 304.449 456.057 290.859 437.486 287.998C419.657 285.137 375.086 283.707 355.772 333.774L200.598 656H-33.0283L150 260.819C199.029 130.644 332.743 56.2584 475.371 80.5768Z"
+            fill="white"/>
       </svg>
     </div>
 
@@ -70,33 +74,34 @@ export default {
     }
   },
   created() {
-      this.getPageData()
-      this.getObjectsData()
+    this.getPageData()
+    this.getObjectsData()
   },
   mounted() {
+    document.body.style.overflow = "";
     this.scrollToZero()
   },
   methods: {
-    async getPageData(){
+    async getPageData() {
       await axios
           .get(`${this.backendURL}/api/v1/get_layout/`)
-          .then( response => {
+          .then(response => {
             this.header_block = response.data.header_block
             console.log(response.data)
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
 
-    async getObjectsData(){
+    async getObjectsData() {
       await axios
           .get(`${this.backendURL}/api/v1/reviews/`)
-          .then( response => {
+          .then(response => {
             this.reviews = response.data.reviews
             console.log(response.data)
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
@@ -105,20 +110,20 @@ export default {
       this.requestPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
-    reviewPopup(review){
+    reviewPopup(review) {
       this.popup_review = review
       this.reviewPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
     hidePopUp(target) {
-      if (target === 'request'){
+      if (target === 'request') {
         this.requestPopUpVisible = false;
       } else if (target === 'review') {
         this.reviewPopUpVisible = false;
       }
       document.body.style.overflow = "";
     },
-    scrollToZero(){
+    scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
   },

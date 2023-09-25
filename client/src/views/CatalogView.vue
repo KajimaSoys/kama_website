@@ -69,29 +69,30 @@ export default {
   },
 
   created() {
-      this.getPageData()
-      this.getObjectsData()
+    this.getPageData()
+    this.getObjectsData()
   },
   mounted() {
+    document.body.style.overflow = "";
     this.scrollToZero()
   },
   methods: {
-    async getPageData(){
+    async getPageData() {
       await axios
           .get(`${this.backendURL}/api/v1/get_layout/`)
-          .then( response => {
+          .then(response => {
             this.header_block = response.data.header_block
             console.log(response.data)
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
 
-    async getObjectsData(){
+    async getObjectsData() {
       await axios
           .get(`${this.backendURL}/api/v1/sofas/`)
-          .then( response => {
+          .then(response => {
             this.sofas = response.data
             console.log(response.data)
 
@@ -102,7 +103,7 @@ export default {
 
             console.log(this.filters);
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
@@ -115,7 +116,7 @@ export default {
       this.requestPopUpVisible = false;
       document.body.style.overflow = "";
     },
-    scrollToZero(){
+    scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
   },

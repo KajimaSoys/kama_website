@@ -121,7 +121,7 @@ export default {
     ReviewPopup,
   },
 
-  data(){
+  data() {
     return {
       header_block: {},
       main_block: {},
@@ -145,10 +145,10 @@ export default {
   },
 
   methods: {
-    async getPageData(){
+    async getPageData() {
       await axios
           .get(`${this.backendURL}/api/v1/main_page/`)
-          .then( response => {
+          .then(response => {
             let receivedData = response.data
 
             this.header_block = receivedData.header_block
@@ -162,15 +162,15 @@ export default {
 
             console.log(response.data)
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
 
-    async getObjectsData(){
+    async getObjectsData() {
       await axios
           .get(`${this.backendURL}/api/v1/service/`)
-          .then( response => {
+          .then(response => {
             let receivedData = response.data
 
             this.popular_models = receivedData.popular_models
@@ -179,13 +179,13 @@ export default {
 
             console.log(response.data)
           })
-          .catch( error => {
+          .catch(error => {
             console.log('An error occurred: ', error)
           })
     },
 
     popUpCall(target) {
-      if (target === 'request'){
+      if (target === 'request') {
         this.requestPopUpVisible = true;
       } else if (target === 'question') {
         this.questionPopUpVisible = true;
@@ -193,7 +193,7 @@ export default {
       document.body.style.overflow = "hidden";
     },
     hidePopUp(target) {
-      if (target === 'request'){
+      if (target === 'request') {
         this.requestPopUpVisible = false;
       } else if (target === 'question') {
         this.questionPopUpVisible = false;
@@ -203,13 +203,13 @@ export default {
       document.body.style.overflow = "";
     },
 
-    reviewPopup(review){
+    reviewPopup(review) {
       this.popup_review = review
       this.reviewPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
 
-    scrollToZero(){
+    scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
 
@@ -220,6 +220,10 @@ export default {
     this.getObjectsData()
     this.scrollToZero()
   },
+
+  mounted() {
+    document.body.style.overflow = "";
+  }
 
 }
 </script>
