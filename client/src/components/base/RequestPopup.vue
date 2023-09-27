@@ -58,7 +58,7 @@
 
                 <div class="popup-acceptance">
                   Нажимая кнопку «Отправить» вы даете согласие на обработку персональных данных и принимаете условия
-                  <router-link to="policy" class="popup-link" @click="document.body.style.overflow = '';">политики
+                  <router-link to="policy" class="popup-link">политики
                     конфиденциальности
                   </router-link>
                 </div>

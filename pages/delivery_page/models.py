@@ -40,4 +40,4 @@ class PaymentBlock(models.Model):
 
     class Meta:
         verbose_name = '2 - Порядок оплаты'
-        verbose_name_plural = '2- Порядок оплаты'
+        verbose_name_plural = '2 - Порядок оплаты'

@@ -108,8 +108,8 @@ export default {
   },
 
   created() {
-    this.getPageData()
     this.getObjectsData(this.$route.params.id)
+    this.getPageData()
   },
   async beforeRouteUpdate(to, from, next) {
     if (to.params.id !== from.params.id) {
@@ -140,10 +140,15 @@ export default {
           .get(`${this.backendURL}/api/v1/sofas/${id}/`)
           .then(response => {
             this.sofa = response.data
+
             console.log(response.data)
           })
           .catch(error => {
-            console.log('An error occurred: ', error)
+            if (error.response && error.response.status === 404) {
+              this.$router.push({name: 'not-found', params: { catchAll: this.$route.path.substring(1) }});
+            } else {
+              console.log('An error occurred: ', error);
+            }
           })
     },
 

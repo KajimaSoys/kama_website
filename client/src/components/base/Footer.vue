@@ -26,7 +26,7 @@
         </div>
 
         <div class="additional offer">
-          Договор оферты
+          <router-link :to="{ name: 'terms' }">Положения и условия</router-link>
         </div>
 
         <div class="developers">
