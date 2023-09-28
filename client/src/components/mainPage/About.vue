@@ -13,7 +13,7 @@
         <div class="row-first">
           <div class="image-container">
             <div class="image-background"></div>
-            <img :src="`${this.backendURL}${this.about.image_first}`" alt="" class="image"/>
+            <img :src="`${this.backendURL}${this.about.image_first}`" alt="Кама - производство мягкой мебели | Фото раздела о компании №1" class="image"/>
           </div>
           <div class="title">
             <div class="title-background"></div>
@@ -24,14 +24,14 @@
 
         <div class="row-second">
           <div class="first-image-container">
-            <img :src="`${this.backendURL}${this.about.image_second}`" alt="" class="image"/>
+            <img :src="`${this.backendURL}${this.about.image_second}`" alt="Кама - производство мягкой мебели | Фото раздела о компании №2" class="image"/>
           </div>
           <div class="description">
             <div class="description-background"></div>
             {{ this.about.description }}
           </div>
           <div class="second-image-container">
-            <img :src="`${this.backendURL}${this.about.image_third}`" alt="" class="image"/>
+            <img :src="`${this.backendURL}${this.about.image_third}`" alt="Кама - производство мягкой мебели | Фото раздела о компании №3" class="image"/>
           </div>
 
         </div>

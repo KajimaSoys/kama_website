@@ -4,7 +4,7 @@
     <div class="footer-max">
       <div class="grid-row">
         <router-link class="logo" to="/">
-          <img :src="`${this.backendURL}${this.footer.logo}`" alt="Кама - Мягкая мебель для вашего дома. Логотип."
+          <img :src="`${this.backendURL}${this.footer.logo}`" alt="Кама - производство мягкой мебели | Логотип"
                width="140" height="60">
         </router-link>
 
@@ -17,7 +17,7 @@
         </div>
 
         <div class="number" @click="this.$emit('popUpCall')">
-          <img src="/icons/phone.svg" alt="" width="18" height="18">
+          <img src="/icons/phone.svg" alt="Кама - производство мягкой мебели | Иконка телефона" width="18" height="18">
           <span>{{ this.footer.number }}</span>
         </div>
 

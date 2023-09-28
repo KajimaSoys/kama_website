@@ -3,7 +3,7 @@
     <div class="payment-max">
       <div class="content">
         <div class="image-container">
-          <img :src="`${this.backendURL}${this.payment.image}`" alt="" class="image"/>
+          <img :src="`${this.backendURL}${this.payment.image}`" alt="Кама - производство мягкой мебели | Фото раздела информации об оплате" class="image"/>
         </div>
         <div class="stages">
           <h2 class="title">

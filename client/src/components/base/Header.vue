@@ -2,7 +2,7 @@
   <div :class="{'header-component': true, 'hidden': isHidden}">
     <div class="flex-row">
       <router-link class="logo" to="/">
-        <img :src="`${this.backendURL}${this.header.logo}`" alt="Кама - Мягкая мебель для вашего дома. Логотип."
+        <img :src="`${this.backendURL}${this.header.logo}`" alt="Кама - производство мягкой мебели | Логотип"
              width="140" height="60">
       </router-link>
 
@@ -20,7 +20,7 @@
             @click="this.$emit('popUpCall')"
             :class="{ 'number-hide': isBurgerMenuOpen }"
         >
-          <img src="/icons/phone.svg" alt="" width="18" height="18">
+          <img src="/icons/phone.svg" alt="Кама - производство мягкой мебели | Иконка телефона" width="18" height="18">
           <span>{{ this.header.number }}</span>
         </div>
 
@@ -42,7 +42,7 @@
                 to="/"
             >
               <img :src="`${this.backendURL}${this.header.logo_light}`"
-                   alt="Кама - Мягкая мебель для вашего дома. Логотип."
+                   alt="Кама - производство мягкой мебели | Логотип"
                    width="140" height="60">
             </router-link>
 

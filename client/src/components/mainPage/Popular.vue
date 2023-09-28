@@ -20,7 +20,7 @@
             <router-link :to="{ name: 'product', params: { id: model.sofa.id } }" class="model">
               <div class="background">
                 <div class="image-container">
-                  <img :src="`${this.backendURL}${model.sofa.first_image.image}`" alt="" class="image"/>
+                  <img :src="`${this.backendURL}${model.sofa.first_image.image}`" :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image"/>
                 </div>
 
                 <div class="model-title">

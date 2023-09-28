@@ -41,7 +41,7 @@
 
         <div class="image-container">
           <div class="image-background"></div>
-          <img :src="`${this.backendURL}${this.main.image}`" alt="" class="image"/>
+          <img :src="`${this.backendURL}${this.main.image}`" alt="Кама - производство мягкой мебели | Фото главного раздела" class="image"/>
         </div>
       </div>
     </div>

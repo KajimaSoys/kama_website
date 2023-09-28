@@ -47,13 +47,13 @@
 
           </div>
           <div class="image-first">
-            <img :src="`${this.backendURL}${this.stages.image_first}`" alt="" class="image"/>
+            <img :src="`${this.backendURL}${this.stages.image_first}`" alt="Кама - производство мягкой мебели | Фото раздела стадий производства №1" class="image"/>
           </div>
         </div>
 
         <div class="section">
           <div class="image-second">
-            <img :src="`${this.backendURL}${this.stages.image_second}`" alt="" class="image"/>
+            <img :src="`${this.backendURL}${this.stages.image_second}`" alt="Кама - производство мягкой мебели | Фото раздела стадий производства №2" class="image"/>
           </div>
           <div class="stages-second">
             <div class="stage">

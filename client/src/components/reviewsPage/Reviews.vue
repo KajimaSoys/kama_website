@@ -9,7 +9,7 @@
         <div class="review" v-for="(review, index) in this.reviews">
           <div class="author">
             <div class="image-container">
-              <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="" class="image"/>
+              <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
             </div>
 
             <div class="author-name">
@@ -20,7 +20,7 @@
           <div class="review-images">
             <a v-for="photo in review.photos" class="image-container"
                :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
-              <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="" class="image"/>
+              <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
             </a>
           </div>
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Главная страница -->
+    <url>
+        <loc>https://kamamebel.com/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>1</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <!-- Каталог -->
+    <url>
+        <loc>https://kamamebel.com/catalog/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>0.4</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <!-- Доставка -->
+    <url>
+        <loc>https://kamamebel.com/delivery/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>0.3</priority>
+        <changefreq>never</changefreq>
+    </url>
+    <!-- Отзывы -->
+    <url>
+        <loc>https://kamamebel.com/reviews/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>0.3</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <!-- Политика конфиденциальности -->
+    <url>
+        <loc>https://kamamebel.com/policy/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>0.1</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+    <!-- Условия использования -->
+    <url>
+        <loc>https://kamamebel.com/terms/</loc>
+        <lastmod>2023-09-29</lastmod>
+        <priority>0.1</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+</urlset>
