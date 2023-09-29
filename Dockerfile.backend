@@ -1,0 +1,20 @@
+FROM python:3.8
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+
+COPY core/ /app/core/
+COPY kama_website/ /app/kama_website/
+COPY pages/ /app/pages/
+COPY media/ /app/media/
+COPY static/ /app/static/
+COPY manage.py /app/
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

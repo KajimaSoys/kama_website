@@ -11,7 +11,7 @@
           </h2>
 
           <div class="van">
-            <img src="images/vinyl-van.png" alt="Кама - производство мягкой мебели | Газель"/>
+            <img src="/images/vinyl-van.png" alt="Кама - производство мягкой мебели | Газель"/>
           </div>
 
           <div class="description">
@@ -20,8 +20,8 @@
 
         </div>
         <div class="images">
-          <img src="images/map.png" class="map" alt="Кама - производство мягкой мебели | Карта"/>
-          <img src="images/map-caption.png" class="map-caption" alt="Кама - производство мягкой мебели | Подпись к карте"/>
+          <img src="/images/map.png" class="map" alt="Кама - производство мягкой мебели | Карта"/>
+          <img src="/images/map-caption.png" class="map-caption" alt="Кама - производство мягкой мебели | Подпись к карте"/>
         </div>
       </div>
     </div>
