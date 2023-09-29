@@ -342,7 +342,7 @@ a {
   height: 100vh;
   background-color: #2A2B2D;
   flex-direction: column;
-  gap: 30%;
+  gap: 10%;
   padding: 1rem 24px 24px;
   z-index: 1000;
   overflow-y: auto;
