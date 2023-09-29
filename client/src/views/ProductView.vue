@@ -1,4 +1,8 @@
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{ content }}</template>
+  </metainfo>
+
   <div class="product-view">
     <Header
         :header="this.header_block"
@@ -77,6 +81,7 @@ import Footer from "../components/base/Footer.vue";
 import RequestPopup from "../components/base/RequestPopup.vue";
 import ReviewPopup from "../components/base/ReviewPopup.vue";
 
+import {useMeta} from "vue-meta";
 
 export default {
   name: "ProductView",
@@ -106,7 +111,6 @@ export default {
       reviewPopUpVisible: false,
     }
   },
-
   created() {
     this.getObjectsData(this.$route.params.id)
     this.getPageData()
@@ -145,7 +149,7 @@ export default {
           })
           .catch(error => {
             if (error.response && error.response.status === 404) {
-              this.$router.push({name: 'not-found', params: { catchAll: this.$route.path.substring(1) }});
+              this.$router.push({name: 'not-found', params: {catchAll: this.$route.path.substring(1)}});
             } else {
               console.log('An error occurred: ', error);
             }
@@ -156,11 +160,13 @@ export default {
       this.requestPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
+
     reviewPopup(review) {
       this.popup_review = review
       this.reviewPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
+
     hidePopUp(target) {
       if (target === 'request') {
         this.requestPopUpVisible = false;
@@ -169,10 +175,38 @@ export default {
       }
       document.body.style.overflow = "";
     },
+
     scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
   },
+  setup() {
+    const title = 'Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома';
+    const description = 'Купите мягкие диваны в Казани от Кама. Высокое качество, доступные цены, быстрая доставка и сборка. Сделайте правильный выбор!';
+
+    useMeta({
+      title: title,
+      description: description,
+      og: {
+        title: title,
+        type: 'website',
+        url: 'https://kamamebel.com/',
+        description: description,
+        site_name: 'Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома',
+        locale: 'ru_RU',
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+      twitter: {
+        card: 'summary',
+        site: 'https://kamamebel.com/',
+        title: title,
+        description: description,
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+    });
+  }
 }
 </script>
 

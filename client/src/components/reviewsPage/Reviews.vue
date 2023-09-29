@@ -64,7 +64,6 @@ export default {
         const elements = this.$el.querySelectorAll('.review-text');
         elements.forEach((element, index) => {
           this.isTooLong[index] = element.scrollHeight > element.clientHeight;
-          console.log(this.isTooLong[index])
         });
       }, 1000);
     });

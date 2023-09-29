@@ -1,4 +1,8 @@
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{ content }}</template>
+  </metainfo>
+
   <Header
       :header="this.header_block"
       @popUpCall="popUpCall()"
@@ -40,6 +44,7 @@ import Footer from "../components/base/Footer.vue";
 
 import RequestPopup from "../components/base/RequestPopup.vue";
 import axios from "axios";
+import {useMeta} from "vue-meta";
 
 export default {
   name: "NotFoundView",
@@ -57,7 +62,14 @@ export default {
       requestPopUpVisible: false,
     }
   },
+  created() {
+    this.getPageData()
 
+  },
+  mounted() {
+    document.body.style.overflow = "";
+    this.scrollToZero()
+  },
   methods: {
     async getPageData() {
       await axios
@@ -76,23 +88,42 @@ export default {
       this.requestPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
+
     hidePopUp() {
       this.requestPopUpVisible = false;
       document.body.style.overflow = "";
     },
+
     scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
-
   },
+  setup() {
+    const title = 'Страница не найдена! | Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома';
+    const description = 'Купите мягкие диваны в Казани от Кама. Высокое качество, доступные цены, быстрая доставка и сборка. Сделайте правильный выбор!';
 
-  created() {
-    this.getPageData()
-
-  },
-  mounted() {
-    document.body.style.overflow = "";
-    this.scrollToZero()
+    useMeta({
+      title: title,
+      description: description,
+      og: {
+        title: title,
+        type: 'website',
+        url: 'https://kamamebel.com/',
+        description: description,
+        site_name: 'Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома',
+        locale: 'ru_RU',
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+      twitter: {
+        card: 'summary',
+        site: 'https://kamamebel.com/',
+        title: title,
+        description: description,
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+    })
   }
 }
 </script>

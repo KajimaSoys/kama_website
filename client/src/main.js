@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/style.css'
 import axios from "axios";
+import { createMetaManager } from 'vue-meta'
 
 // import ElementPlus from "element-plus";
 // import 'element-plus/dist/index.css'
@@ -10,6 +11,8 @@ import axios from "axios";
 const app = createApp(App)
 
 app.use(router, axios)
+
+app.use(createMetaManager() )
 
 // app.use(ElementPlus)
 

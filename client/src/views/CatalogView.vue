@@ -1,4 +1,9 @@
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{ content }}</template>
+  </metainfo>
+
+
   <div class="catalog-view">
     <Header
         :header="this.header_block"
@@ -38,6 +43,8 @@ import Catalog from "../components/catalogPage/Catalog.vue";
 import Footer from "../components/base/Footer.vue";
 import RequestPopup from "../components/base/RequestPopup.vue";
 
+import {useMeta} from 'vue-meta'
+
 
 export default {
   name: "CatalogView",
@@ -67,7 +74,6 @@ export default {
 
     }
   },
-
   created() {
     this.getPageData()
     this.getObjectsData()
@@ -112,14 +118,43 @@ export default {
       this.requestPopUpVisible = true;
       document.body.style.overflow = "hidden";
     },
+
     hidePopUp() {
       this.requestPopUpVisible = false;
       document.body.style.overflow = "";
     },
+
     scrollToZero() {
       document.documentElement.scrollTop = 0;
     }
   },
+  setup() {
+    const title = 'Каталог | Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома';
+    const description = 'Каталог диванов компании Кама. Купите мягкие диваны в Казани от Кама. Высокое качество, доступные цены, быстрая доставка и сборка. Сделайте правильный выбор!';
+
+    useMeta({
+      title: title,
+      description: description,
+      og: {
+        title: title,
+        type: 'website',
+        url: 'https://kamamebel.com/catalog',
+        description: description,
+        site_name: 'Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома',
+        locale: 'ru_RU',
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+      twitter: {
+        card: 'summary',
+        site: 'https://kamamebel.com/catalog',
+        title: title,
+        description: description,
+        image: 'https://kamamebel.com/images/meta-img.png',
+        'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'
+      },
+    })
+  }
 }
 </script>
 
