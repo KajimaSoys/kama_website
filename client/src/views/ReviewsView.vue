@@ -93,7 +93,7 @@ export default {
           .get(`${this.backendURL}/api/v1/get_layout/`)
           .then(response => {
             this.header_block = response.data.header_block
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)
@@ -105,7 +105,7 @@ export default {
           .get(`${this.backendURL}/api/v1/reviews/`)
           .then(response => {
             this.reviews = response.data.reviews
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)

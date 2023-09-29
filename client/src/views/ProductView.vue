@@ -132,7 +132,7 @@ export default {
           .then(response => {
             this.header_block = response.data.header_block
             this.contacts = response.data.contacts_block
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)
@@ -145,7 +145,7 @@ export default {
           .then(response => {
             this.sofa = response.data
 
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             if (error.response && error.response.status === 404) {

@@ -19,6 +19,8 @@ app.use(createMetaManager() )
 let backendURL = import.meta.env.VITE_BACKEND_HOST;
 axios.defaults.baseURL = backendURL
 
+let hmac_key = import.meta.env.VITE_HMAC_SECRET_KEY;
+
 app.mount('#app')
 // router.isReady().then(() => {
 //   app.mount('#app')
@@ -43,6 +45,7 @@ app.mount('#app')
 // })
 
 app.provide('backendURL', backendURL)
+app.provide('hmac_key', hmac_key)
 
 app.config.globalProperties.$projectVersion = '0.7'
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:5173'; // Set the allowed origin

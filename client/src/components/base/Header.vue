@@ -181,7 +181,7 @@ export default {
           .get(`${this.backendURL}/api/v1/get_layout/`)
           .then(response => {
             this.contacts = response.data.contacts_block
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)

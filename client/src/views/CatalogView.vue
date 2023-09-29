@@ -88,7 +88,7 @@ export default {
           .get(`${this.backendURL}/api/v1/get_layout/`)
           .then(response => {
             this.header_block = response.data.header_block
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)
@@ -100,14 +100,14 @@ export default {
           .get(`${this.backendURL}/api/v1/sofas/`)
           .then(response => {
             this.sofas = response.data
-            console.log(response.data)
+            // console.log(response.data)
 
             this.filters.sofaForms = [...new Set(this.sofas.map(sofa => sofa.sofa_form))];
             this.filters.sofaTypes = [...new Set(this.sofas.map(sofa => sofa.sofa_type))];
             this.filters.foldingMechanisms = [...new Set(this.sofas.map(sofa => sofa.folding_mechanism))];
 
 
-            console.log(this.filters);
+            // console.log(this.filters);
           })
           .catch(error => {
             console.log('An error occurred: ', error)

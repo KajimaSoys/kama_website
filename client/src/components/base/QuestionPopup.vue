@@ -86,10 +86,12 @@
 <script>
 import {mask} from "vue-the-mask";
 import axios from "axios";
+import crypto from 'crypto-js';
+
 
 export default {
   name: "QuestionPopup",
-  inject: ['backendURL'],
+  inject: ['backendURL', 'hmac_key'],
   directives: {mask},
   props: {
     visible: {
@@ -144,11 +146,18 @@ export default {
           }
         }
 
+        const payloadString = JSON.stringify(body);
+        const signature = crypto.HmacSHA256(payloadString, this.hmac_key).toString();
+
         await axios
-            .post('api/v1/create_order/', body)
+            .post('api/v1/create_order/', body, {
+              headers: {
+                'X-Signature': signature
+              }
+            })
             .then(response => {
               this.pending = false
-              console.log(response)
+              // console.log(response)
             })
             .catch(error => {
               console.log(error)

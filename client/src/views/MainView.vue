@@ -171,7 +171,7 @@ export default {
             this.delivery_block = receivedData.delivery_block
             this.contacts_block = receivedData.contacts_block
 
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)
@@ -188,7 +188,7 @@ export default {
             this.reviews = receivedData.reviews
             this.questions = receivedData.questions
 
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)

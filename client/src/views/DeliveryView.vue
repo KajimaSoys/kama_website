@@ -92,7 +92,7 @@ export default {
             this.delivery_block = receivedData.delivery_block
             this.payment_block = receivedData.payment_block
 
-            console.log(response.data)
+            // console.log(response.data)
           })
           .catch(error => {
             console.log('An error occurred: ', error)
