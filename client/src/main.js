@@ -15,11 +15,14 @@ app.use(router, axios)
 app.use(createMetaManager() )
 
 // app.use(ElementPlus)
-
-let backendURL = import.meta.env.VITE_BACKEND_HOST;
-axios.defaults.baseURL = backendURL
-
 let hmac_key = import.meta.env.VITE_HMAC_SECRET_KEY;
+let backendURL = import.meta.env.VITE_BACKEND_HOST;
+
+axios.defaults.baseURL = backendURL
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+
 
 app.mount('#app')
 // router.isReady().then(() => {
