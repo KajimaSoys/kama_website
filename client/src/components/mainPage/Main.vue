@@ -256,7 +256,7 @@ h1 {
     background: white;
     z-index: -1;
     position: absolute;
-    width: 400%;
+    width: 100vw;
     height: 9rem;
     top: 50%;
     left: 50%;

@@ -159,7 +159,7 @@ export default {
     background: white;
     z-index: -1;
     position: absolute;
-    width: 300%;
+    width: 100vw;
     height: 16rem;
     top: 50%;
     left: 50%;
@@ -185,7 +185,7 @@ export default {
     background: white;
     z-index: -1;
     position: absolute;
-    width: 300%;
+    width: 100vw;
     height: 14rem;
     top: 50%;
     left: 50%;
