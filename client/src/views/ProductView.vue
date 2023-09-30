@@ -144,6 +144,7 @@ export default {
           .get(`${this.backendURL}/api/v1/sofas/${id}/`)
           .then(response => {
             this.sofa = response.data
+            window.ym(95108306, 'hit', `https://kamamebel.com/catalog/${id}`)
 
             // console.log(response.data)
           })

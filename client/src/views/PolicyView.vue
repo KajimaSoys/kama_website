@@ -393,6 +393,7 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
+    window.ym(95108306, 'hit', 'https://kamamebel.com/policy')
   },
   methods: {
     async getPageData() {
@@ -429,10 +430,10 @@ export default {
     const description = 'Политика конфиденциальности компании Кама. Купите мягкие диваны в Казани от Кама. Высокое качество, доступные цены, быстрая доставка и сборка. Сделайте правильный выбор!';
 
     useMeta({
-      title: title ,
+      title: title,
       description: description,
       og: {
-        title: title ,
+        title: title,
         type: 'website',
         url: 'https://kamamebel.com/',
         description: description,
@@ -444,7 +445,7 @@ export default {
       twitter: {
         card: 'summary',
         site: 'https://kamamebel.com/',
-        title: title ,
+        title: title,
         description: description,
         image: 'https://kamamebel.com/images/meta-img.png',
         'image:alt': 'Изображение главной страницы сайта Кама. Диваны в Казани от Кама - Лучшие мягкие диваны для вашего дома.'

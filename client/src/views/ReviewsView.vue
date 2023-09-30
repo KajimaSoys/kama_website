@@ -86,6 +86,7 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
+    window.ym(95108306, 'hit', 'https://kamamebel.com/reviews')
   },
   methods: {
     async getPageData() {

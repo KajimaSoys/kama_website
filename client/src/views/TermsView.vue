@@ -484,11 +484,11 @@ export default {
   },
   created() {
     this.getPageData()
-
   },
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
+    window.ym(95108306, 'hit', 'https://kamamebel.com/terms')
   },
   methods: {
     async getPageData() {
