@@ -155,10 +155,13 @@ export default {
             })
             .then(response => {
               this.pending = false
+              window.ym(95108306, 'reachGoal', 'Заявка отправлена (всплывающее окно "Рассчитать стоимость")')
               // console.log(response)
             })
             .catch(error => {
               console.log(error)
+              window.ym(95108306, 'reachGoal', 'Ошибка при отправке заявки (всплывающее окно "Рассчитать стоимость")')
+
             })
 
         popup.isSubmitted = true;
