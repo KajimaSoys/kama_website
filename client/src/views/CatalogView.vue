@@ -81,7 +81,6 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
-    window.ym(95108306, 'hit', 'https://kamamebel.com/catalog')
   },
   methods: {
     async getPageData() {
@@ -102,6 +101,7 @@ export default {
           .then(response => {
             this.sofas = response.data
             // console.log(response.data)
+            window.ym(95108306, 'hit', 'https://kamamebel.com/catalog')
 
             this.filters.sofaForms = [...new Set(this.sofas.map(sofa => sofa.sofa_form))];
             this.filters.sofaTypes = [...new Set(this.sofas.map(sofa => sofa.sofa_type))];

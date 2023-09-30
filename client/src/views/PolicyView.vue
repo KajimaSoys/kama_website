@@ -393,7 +393,6 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
-    window.ym(95108306, 'hit', 'https://kamamebel.com/policy')
   },
   methods: {
     async getPageData() {
@@ -402,6 +401,7 @@ export default {
           .then(response => {
             this.header_block = response.data.header_block
             this.contacts = response.data.contacts_block
+            window.ym(95108306, 'hit', 'https://kamamebel.com/policy')
             // console.log(response.data)
           })
           .catch(error => {

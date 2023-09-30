@@ -80,7 +80,6 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
-    window.ym(95108306, 'hit', 'https://kamamebel.com/delivery')
   },
   methods: {
     async getPageData() {
@@ -88,6 +87,7 @@ export default {
           .get(`${this.backendURL}/api/v1/delivery_page/`)
           .then(response => {
             let receivedData = response.data
+            window.ym(95108306, 'hit', 'https://kamamebel.com/delivery')
 
             this.header_block = receivedData.header_block
             this.delivery_block = receivedData.delivery_block

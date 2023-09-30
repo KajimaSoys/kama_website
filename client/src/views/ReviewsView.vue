@@ -86,7 +86,6 @@ export default {
   mounted() {
     document.body.style.overflow = "";
     this.scrollToZero()
-    window.ym(95108306, 'hit', 'https://kamamebel.com/reviews')
   },
   methods: {
     async getPageData() {
@@ -95,6 +94,7 @@ export default {
           .then(response => {
             this.header_block = response.data.header_block
             // console.log(response.data)
+            window.ym(95108306, 'hit', 'https://kamamebel.com/reviews')
           })
           .catch(error => {
             console.log('An error occurred: ', error)
