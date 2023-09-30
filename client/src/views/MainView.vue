@@ -171,7 +171,7 @@ export default {
             this.stages_block = receivedData.stages_block
             this.delivery_block = receivedData.delivery_block
             this.contacts_block = receivedData.contacts_block
-            window.ym(95108306, 'hit', 'https://kamamebel.com');
+            window.ym(95108306, 'hit', 'https://kamamebel.com/');
 
             // console.log(response.data)
           })
