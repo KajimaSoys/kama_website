@@ -395,7 +395,6 @@ input[type="text"]:focus::placeholder, input[type="tel"]:focus::placeholder {
 
 .popup-acceptance {
   color: #BBB;
-  font-family: Inter, serif;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
