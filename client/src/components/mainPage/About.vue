@@ -84,7 +84,7 @@ export default {
 }
 
 .title-background, .description-background, .image-background {
-  visibility: hidden;
+  display: none;
 }
 
 .row-first {
@@ -151,11 +151,11 @@ export default {
   }
 
   .union {
-    visibility: hidden;
+    display: none
   }
 
   .title-background, .description-background {
-    visibility: visible;
+    display: block;
     background: white;
     z-index: -1;
     position: absolute;
@@ -181,7 +181,7 @@ export default {
   }
 
   .image-background {
-    visibility: visible;
+    display: block;
     background: white;
     z-index: -1;
     position: absolute;
@@ -198,7 +198,7 @@ export default {
   }
 
   .description-background {
-    visibility: hidden;
+    display: none;
   }
 
   .image-container {

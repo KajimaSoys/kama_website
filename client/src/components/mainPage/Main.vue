@@ -231,7 +231,7 @@ h1 {
   }
 
   .union {
-    visibility: hidden;
+    display: none;
   }
 
   .parent {

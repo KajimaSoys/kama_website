@@ -279,6 +279,9 @@ h3 {
     width: 49%;
   }
 
+  .union {
+    left: unset;
+  }
 }
 
 @media screen and (max-width: 640px) {
@@ -333,6 +336,11 @@ h3 {
 
   .image-second .image {
     width: 100%;
+  }
+
+  .union svg {
+    width: 100%;
+    height: 100%;
   }
 }
 
