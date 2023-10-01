@@ -19,6 +19,7 @@
         - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
         - CSRF_TRUSTED=${CSRF_TRUSTED}
         - HMAC_KEY=${HMAC_KEY}
+        - BITRIX_WEBHOOK_URL=${BITRIX_WEBHOOK_URL}
       volumes:
         - ./:/app
         - ./media:/app/media
