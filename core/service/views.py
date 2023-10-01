@@ -14,6 +14,9 @@ import os
 import hmac
 import hashlib
 import json
+import requests
+from django.conf import settings
+
 
 
 def aggregate_data(request):
@@ -57,7 +60,7 @@ def get_reviews(request):
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def create_order(request):
-    hmac_key = os.environ.get("HMAC_KEY", 'asdnjnvksjndfelu')
+    hmac_key = settings.HMAC_KEY
     received_signature = request.META.get("HTTP_X_SIGNATURE")
 
     if received_signature:
@@ -71,5 +74,27 @@ def create_order(request):
     serializer = OrderSerializer(data=request.data['request'])
     if serializer.is_valid():
         serializer.save()
-        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        order_data = serializer.data
+
+        bitrix_data = {
+            "fields[TITLE]": f"{order_data.get('name')} - kamamebel.com",
+            "fields[NAME]": order_data.get("name"),
+            "fields[PHONE][0][VALUE]": order_data.get("number"),
+            "fields[SOURCE_ID]": "WEB",
+            "fields[COMMENTS]": f'Клиент оставил сообщение "{order_data.get("message")}"' if order_data.get("message") else 'Клиент не оставил сообщения',
+            "fields[ASSIGNED_BY_ID]": "1",
+            "fields[OPENED]": "Y",
+        }
+
+        params_str = "&".join(f"{key}={value}" for key, value in bitrix_data.items())
+        bitrix_webhook_url = f"{settings.BITRIX_WEBHOOK_URL}/crm.lead.add.json"
+        response = requests.post(f'{bitrix_webhook_url}?{params_str}')
+        
+        if response.status_code == 200:
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(
+                {"error": "Failed to send data to Bitrix24"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
