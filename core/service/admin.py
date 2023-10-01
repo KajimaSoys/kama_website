@@ -109,8 +109,13 @@ class ReviewAdmin(SortableAdminMixin, admin.ModelAdmin):
     def thumbnail(self, obj):
         if obj.author_photo:
             return mark_safe(f'<a href="{obj.author_photo.url}"><img src="{obj.author_photo.url}" width="200" /></a>')
-        return "Предпросмотр пока недоступен, сохраните отзыв для отображения фото."
+        return "Предпросмотр недоступен, отсутствует изображение."
 
     thumbnail.short_description = "Предпросмотр фото автора"
-    list_display = ['author', 'thumbnail']
+    list_display = ['author', 'thumbnail', 'review']
     readonly_fields = ['thumbnail']
+
+    raw_id_fields = ("sofa",)
+    related_lookup_fields = {
+        "fk": ["sofa"],
+    }

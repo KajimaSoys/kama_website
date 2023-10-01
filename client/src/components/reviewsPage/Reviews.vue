@@ -8,8 +8,12 @@
       <div class="content">
         <div class="review" v-for="(review, index) in this.reviews">
           <div class="author">
-            <div class="image-container">
+            <div class="image-container" v-if="review.author_photo">
               <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+            </div>
+
+            <div class="image-container" v-else>
+              <img src="/images/no-photo.png" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
             </div>
 
             <div class="author-name">

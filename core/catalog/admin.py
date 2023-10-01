@@ -21,7 +21,7 @@ class SofaImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Review
-    fields = ['author', 'review', ]
+    fields = ['author', 'review', 'author_photo']
     extra = 0
     verbose_name = "Отзыв"
     verbose_name_plural = "Отзывы"

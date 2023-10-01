@@ -18,8 +18,14 @@
           >
             <div class="review">
               <div class="author">
-                <div class="image-container">
-                  <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+                <div class="image-container" v-if="review.author_photo">
+                  <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`"
+                       alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+                </div>
+
+                <div class="image-container" v-else>
+                  <img src="/images/no-photo.png" alt="Кама - производство мягкой мебели | Фото автора отзыва"
+                       class="image"/>
                 </div>
 
                 <div class="author-name">
@@ -30,7 +36,8 @@
               <div class="review-images">
                 <a v-for="photo in review.photos" class="image-container"
                    :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
-                  <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
+                  <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
+                       alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
                 </a>
               </div>
 
