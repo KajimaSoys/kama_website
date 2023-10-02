@@ -17,8 +17,8 @@
               </svg>
             </div>
           </div>
-          <div v-if="openQuestions.includes(question.id)" class="answer">
-            <div v-html="question.answer"></div>
+          <div class="answer" :class="{ 'answer-visible': openQuestions.includes(question.id)}"
+               v-html="question.answer">
           </div>
         </div>
         <div class="button">
@@ -104,6 +104,11 @@ export default {
   padding: 2rem 0;
   border-bottom: 1px solid #E5E5E5;
   cursor: pointer;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+
 }
 
 .question-content {
@@ -128,6 +133,7 @@ export default {
 
 .question-card:hover .icon {
   background-color: #212121;;
+
 }
 
 .icon path {
@@ -138,7 +144,7 @@ export default {
   stroke: white;
 }
 
-.answer {
+.answer-base {
   margin-top: 2rem;
   color: #484848;
   font-size: 1.125rem;
@@ -146,6 +152,38 @@ export default {
   font-weight: 400;
   line-height: 150%;
   text-align: left;
+}
+
+.answer {
+  margin-top: 0;
+  color: #484848;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-align: left;
+  max-height: 0;
+
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+
+}
+
+
+:deep(.answer p) {
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.answer-visible {
+  margin-top: 2rem;
+  max-height: 20rem;
+  opacity: 1;
+}
+
+:deep(.answer-visible p) {
+  visibility: visible;
 }
 
 .button {
