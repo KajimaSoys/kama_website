@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <div class="review-images">
+          <div class="review-images" v-if="review.photos">
             <a v-for="photo in review.photos.slice(0, 5)" class="image-container"
                :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
               <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
