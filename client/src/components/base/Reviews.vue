@@ -34,7 +34,7 @@
               </div>
 
               <div class="review-images">
-                <a v-for="photo in review.photos" class="image-container"
+                <a v-for="photo in review.photos.slice(0, 5)" class="image-container"
                    :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
                   <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
                        alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
@@ -221,6 +221,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 1/1;
 }
 
 .review-images {
@@ -381,6 +382,13 @@ svg path {
 
   .review {
     gap: 1.5rem;
+  }
+
+  .review-images .image-container {
+    max-height: 3.75rem;
+    height: unset;
+    width: 3.75rem;
+    aspect-ratio: 1/1;
   }
 }
 

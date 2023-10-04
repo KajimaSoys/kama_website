@@ -9,11 +9,13 @@
         <div class="review" v-for="(review, index) in this.reviews">
           <div class="author">
             <div class="image-container" v-if="review.author_photo">
-              <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+              <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`"
+                   alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
             </div>
 
             <div class="image-container" v-else>
-              <img src="/images/no-photo.png" alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+              <img src="/images/no-photo.png" alt="Кама - производство мягкой мебели | Фото автора отзыва"
+                   class="image"/>
             </div>
 
             <div class="author-name">
@@ -22,9 +24,10 @@
           </div>
 
           <div class="review-images">
-            <a v-for="photo in review.photos" class="image-container"
+            <a v-for="photo in review.photos.slice(0, 5)" class="image-container"
                :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
-              <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`" alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
+              <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
+                   alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
             </a>
           </div>
 
@@ -153,6 +156,7 @@ h1.title {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 1/1;
 }
 
 .review-images {
@@ -232,6 +236,13 @@ h1.title {
 
   .review {
     padding: 2rem;
+  }
+
+  .review-images .image-container {
+    max-height: 3.75rem;
+    height: unset;
+    width: 3.75rem;
+    aspect-ratio: 1/1;
   }
 }
 
