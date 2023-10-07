@@ -8,12 +8,14 @@ from core.service.models import Review
 class SofaImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = SofaImage
     extra = 1
-    readonly_fields = ['thumbnail']
-    fields = ('image', 'thumbnail', 'order')
+    readonly_fields = ["thumbnail"]
+    fields = ("image", "thumbnail", "order")
 
     def thumbnail(self, obj):
         if obj.image:
-            return mark_safe(f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="200" /></a>')
+            return mark_safe(
+                f'<a href="{obj.image.url}"><img src="{obj.image.url}" width="200" /></a>'
+            )
         return "Предпросмотр пока недоступен, сохраните товар для отображения фото."
 
     thumbnail.short_description = "Предпросмотр фото"
@@ -21,7 +23,7 @@ class SofaImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Review
-    fields = ['author', 'review', 'author_photo']
+    fields = ["author", "review", "author_photo"]
     extra = 0
     verbose_name = "Отзыв"
     verbose_name_plural = "Отзывы"
@@ -30,35 +32,89 @@ class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(Sofa)
 class SofaAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = [
-        ("Основные характеристики", {'fields': ['name', 'working_name', 'description', 'short_description', 'active']}),
-        ("Тип, Цвет и Цена", {'fields': ['sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'price']}),
-        ("Размеры", {'fields': ['height', 'width', 'depth', 'seat_depth', 'back_height', 'armrest_height', 'seat_height', 'legs_height']}),
-        ("Другие варианты", {'fields': ['other_variants']}),
+        (
+            "Основные характеристики",
+            {
+                "fields": [
+                    "name",
+                    "working_name",
+                    "description",
+                    "short_description",
+                    "active",
+                ]
+            },
+        ),
+        (
+            "Тип, Цвет и Цена",
+            {
+                "fields": [
+                    "sofa_form",
+                    "sofa_type",
+                    "folding_mechanism",
+                    "folding_size",
+                    "color",
+                    "price",
+                ]
+            },
+        ),
+        (
+            "Размеры",
+            {
+                "fields": [
+                    "height",
+                    "width",
+                    "depth",
+                    "seat_depth",
+                    "back_height",
+                    "armrest_height",
+                    "seat_height",
+                    "legs_height",
+                    "straight_module_depth",
+                    "corner_module_depth",
+                    "module_depth",
+                    "pouf_depth",
+                ]
+            },
+        ),
+        ("Другие варианты", {"fields": ["other_variants"]}),
     ]
 
-    list_display = ['name', 'working_name', 'sofa_form', 'sofa_type', 'folding_mechanism', 'color', 'sizes', 'price', 'thumbnail', 'active']
-    list_editable = ['active', ]
+    list_display = [
+        "name",
+        "working_name",
+        "sofa_form",
+        "sofa_type",
+        "folding_mechanism",
+        "color",
+        "sizes",
+        "price",
+        "thumbnail",
+        "active",
+    ]
+    list_editable = [
+        "active",
+    ]
 
-    search_fields = ['name', 'working_name', 'color']
-    list_filter = ['sofa_form', 'sofa_type', 'folding_mechanism']
+    search_fields = ["name", "working_name", "color"]
+    list_filter = ["sofa_form", "sofa_type", "folding_mechanism"]
 
     inlines = [SofaImageInline, ReviewInline]
-    raw_id_fields = ('other_variants',)
+    raw_id_fields = ("other_variants",)
     related_lookup_fields = {
-        'fk': ['other_variants'],
+        "fk": ["other_variants"],
     }
     actions = ["copy_selected"]
 
     def copy_selected(self, request, queryset):
         for obj in queryset:
-            obj.working_name += ' - Копия'
+            obj.working_name += " - Копия"
             obj.pk = None
             obj.save()
 
     copy_selected.short_description = "Копировать выбранные объекты"
 
     def sizes(self, obj):
-        return f'{round(obj.height)}*{round(obj.width)}*{round(obj.depth)}мм'
+        return f"{round(obj.height)}*{round(obj.width)}*{round(obj.depth)}мм"
 
     sizes.short_description = "Размер"
 

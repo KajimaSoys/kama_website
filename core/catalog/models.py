@@ -36,19 +36,25 @@ class Sofa(models.Model):
     ]
 
     folding_mechanism = models.CharField(max_length=50, choices=FOLDING_MECHANISM_CHOICES, verbose_name="Механизм раскладывания", blank=True)
+    folding_size = models.FloatField(verbose_name="Размер расклада дивана", blank=True, null=True)
 
     color = models.CharField(max_length=50, verbose_name="Цвет", blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
 
     # Третья группа полей
-    height = models.FloatField(verbose_name="Высота")
-    width = models.FloatField(verbose_name="Ширина")
-    depth = models.FloatField(verbose_name="Глубина")
+    height = models.FloatField(verbose_name="Общая высота")
+    width = models.FloatField(verbose_name="Общая ширина")
+    depth = models.FloatField(verbose_name="Общая глубина")
     seat_depth = models.FloatField(verbose_name="Глубина посадочного места", blank=True, null=True)
     back_height = models.FloatField(verbose_name="Высота спинки", blank=True, null=True)
     armrest_height = models.FloatField(verbose_name="Высота подлокотников", blank=True, null=True)
     seat_height = models.FloatField(verbose_name="Высота посадочного места", blank=True, null=True)
     legs_height = models.FloatField(verbose_name="Высота ножек", blank=True, null=True)
+
+    straight_module_depth = models.FloatField(verbose_name="Глубина прямого модуля", blank=True, null=True)
+    corner_module_depth = models.FloatField(verbose_name="Глубина углового модуля", blank=True, null=True)
+    module_depth = models.FloatField(verbose_name="Глубина модуля", blank=True, null=True)
+    pouf_depth = models.FloatField(verbose_name="Глубина пуфа", blank=True, null=True)
 
     # Четвертая группа полей
     other_variants = models.ManyToManyField('self', blank=True, verbose_name="Другие варианты исполнения")
