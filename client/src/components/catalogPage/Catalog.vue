@@ -4,7 +4,8 @@
       <div class="model-list" v-if="filteredSofas.length">
         <router-link :to="{ name: 'product', params: { id: sofa.id } }" class="model" v-for="sofa in filteredSofas">
           <div class="image-container">
-            <img :src="`${this.backendURL}${sofa.first_image.image}`" :alt="`Кама - производство мягкой мебели | ${sofa.name}`" class="image"/>
+            <img :src="`${this.backendURL}${sofa.first_image.image}`"
+                 :alt="`Кама - производство мягкой мебели | ${sofa.name}`" class="image"/>
           </div>
           <div class="text-container">
             <h2 class="model-name-hover">
@@ -128,6 +129,9 @@ export default {
   text-align: center;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 60%, rgba(0, 0, 0, 0.20) 100%);
   transition: background-color 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .model-name {
@@ -136,11 +140,12 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 100%;
   position: absolute;
   bottom: 2rem;
   transition: opacity 0.2s ease-in-out;
   opacity: 1;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .model-name-hover {
@@ -149,11 +154,12 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 100%;
   position: absolute;
   bottom: 18.5rem;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .model-description-hover {
