@@ -36,7 +36,12 @@
         <div class="select-container">
           <select v-model="filters.currentFoldingMechanisms">
             <option value="all">Любой</option>
-            <option v-for="mechanism in filters.foldingMechanisms" :key="mechanism" :value="mechanism">
+            <option
+                v-for="mechanism in filters.foldingMechanisms"
+                :key="mechanism"
+                :value="mechanism"
+                v-if="mechanism"
+            >
               {{ translations[mechanism] }}
             </option>
           </select>
@@ -65,6 +70,7 @@ export default {
         non_folding: 'Нераскладной',
         'tik-tac': 'Тик-так',
         dolphin: 'Дельфин',
+        '': 'Отсутствует',
       },
     }
   },
