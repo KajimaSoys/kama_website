@@ -34,8 +34,12 @@
             <div class="parameter-title">
               Механизм раскладывания
             </div>
-            <div class="parameter-value">
-              {{ translations[description.folding_mechanism] }}
+            <div class="parameter-value" v-if="description.folding_mechanism">
+              {{ translations[description.folding_mechanism] }} <span
+                v-if="description.folding_size">(Расклад {{ description.folding_size }}мм)</span>
+            </div>
+            <div class="parameter-value" v-else>
+              {{ Отсутствует }}
             </div>
           </div>
 
@@ -117,6 +121,42 @@
             </div>
             <div class="parameter-value">
               {{ description.legs_height }} мм
+            </div>
+          </div>
+
+          <div class="parameter" v-if="description.straight_module_depth">
+            <div class="parameter-title">
+              Глубина прямого модуля
+            </div>
+            <div class="parameter-value">
+              {{ description.straight_module_depth }} мм
+            </div>
+          </div>
+
+          <div class="parameter" v-if="description.corner_module_depth">
+            <div class="parameter-title">
+              Глубина углового модуля
+            </div>
+            <div class="parameter-value">
+              {{ description.corner_module_depth }} мм
+            </div>
+          </div>
+
+          <div class="parameter" v-if="description.module_depth">
+            <div class="parameter-title">
+              Глубина модуля
+            </div>
+            <div class="parameter-value">
+              {{ description.module_depth }} мм
+            </div>
+          </div>
+
+          <div class="parameter" v-if="description.pouf_depth">
+            <div class="parameter-title">
+              Глубина пуфа
+            </div>
+            <div class="parameter-value">
+              {{ description.pouf_depth }} мм
             </div>
           </div>
         </div>
@@ -459,7 +499,7 @@ svg {
   }
 
   .parameter {
-        height: 3rem;
+    height: 3rem;
     align-items: center;
     border-bottom: #E6E6E6 1px solid;
   }

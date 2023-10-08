@@ -1,15 +1,12 @@
 from rest_framework import serializers
-from .models import (
-    Sofa,
-    SofaImage
-)
+from .models import Sofa, SofaImage
 from core.service.serializers import ReviewSerializer
 
 
 class SofaImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SofaImage
-        fields = ['image']
+        fields = ["image"]
 
 
 class SofaListSerializer(serializers.ModelSerializer):
@@ -21,9 +18,18 @@ class SofaListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sofa
-        fields = ['id', 'name', 'short_description', 'price',
-                  'sofa_form', 'sofa_type', 'folding_mechanism',
-                  'first_image', 'order', 'active']
+        fields = [
+            "id",
+            "name",
+            "short_description",
+            "price",
+            "sofa_form",
+            "sofa_type",
+            "folding_mechanism",
+            "first_image",
+            "order",
+            "active",
+        ]
 
 
 class SofaDetailSerializer(serializers.ModelSerializer):
@@ -44,10 +50,28 @@ class SofaDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sofa
         fields = [
-            'id', 'name', 'description', 'sofa_form',
-            'sofa_type', 'folding_mechanism',
-            'height', 'width', 'depth', 'seat_depth',
-            'back_height', 'armrest_height', 'seat_height',
-            'legs_height', 'price',
-            'images', 'reviews', 'other_variants', 'active'
+            "id",
+            "name",
+            "description",
+            "sofa_form",
+            "sofa_type",
+            "folding_mechanism",
+            "folding_size",
+            "height",
+            "width",
+            "depth",
+            "seat_depth",
+            "back_height",
+            "armrest_height",
+            "seat_height",
+            "legs_height",
+            "straight_module_depth",
+            "corner_module_depth",
+            "module_depth",
+            "pouf_depth",
+            "price",
+            "images",
+            "reviews",
+            "other_variants",
+            "active",
         ]
