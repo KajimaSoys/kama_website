@@ -87,6 +87,7 @@ export default {
       return (link) => {
         let newLink = link.replace('http://127.0.0.1:8000', '');
         newLink = newLink.replace('https://kamamebel.com', '');
+        newLink = newLink.replace('http://kamamebel.com', '');
         return newLink;
       };
     }
