@@ -39,7 +39,7 @@
                 v-if="description.folding_size">(Расклад {{ description.folding_size }}мм)</span>
             </div>
             <div class="parameter-value" v-else>
-              {{ Отсутствует }}
+              Отсутствует
             </div>
           </div>
 
