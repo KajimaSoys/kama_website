@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django_resized import ResizedImageField
 
 
 class Sofa(models.Model):
@@ -75,7 +76,12 @@ class SofaImage(models.Model):
     Description of SofaImage Model of Catalog App
     """
     sofa = models.ForeignKey(Sofa, related_name='images', on_delete=models.CASCADE, verbose_name="Диван")
-    image = models.ImageField(upload_to='core/catalog/sofas/', verbose_name="Изображение")
+    image = ResizedImageField(
+        size=[1184, 620],
+        quality=85,
+        upload_to="core/catalog/sofas/",
+        verbose_name="Изображение",
+    )
     order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Порядок")
 
     def __str__(self):
