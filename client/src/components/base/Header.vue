@@ -472,7 +472,7 @@ a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 7rem;
+    width: 6rem;
   }
 
   .logo img {

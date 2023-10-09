@@ -109,7 +109,7 @@ export default {
 }
 
 .image-container {
-  height: 28rem;
+  height: 22rem;
   overflow: hidden;
   position: relative;
 }
@@ -127,11 +127,13 @@ export default {
   height: 100%;
   width: 100%;
   text-align: center;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 60%, rgba(0, 0, 0, 0.20) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.50) 100%);
   transition: background-color 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .model-name {
@@ -141,7 +143,7 @@ export default {
   font-weight: 400;
   line-height: normal;
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   transition: opacity 0.2s ease-in-out;
   opacity: 1;
   padding-left: 2rem;
@@ -154,8 +156,6 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  position: absolute;
-  bottom: 18.5rem;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
   padding-left: 2rem;
@@ -168,8 +168,6 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  top: 11.5rem;
-  position: relative;
   width: 60%;
   margin-left: auto;
   margin-right: auto;
@@ -185,10 +183,9 @@ export default {
   font-weight: 400;
   line-height: 150%;
   width: 100%;
-  position: absolute;
-  top: 18.5rem;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  margin-top: 2rem;
 }
 
 .model:hover .text-container {
@@ -234,19 +231,24 @@ export default {
   }
 
   .image-container {
-    height: 22.875rem;
+    height: 17rem;
+  }
+
+  .model-name {
+    font-size: 1.375rem;
   }
 
   .model-name-hover {
-    bottom: 14.5rem;
+    font-size: 1.375rem;
   }
 
   .model-description-hover {
-    top: 10.5rem;
+    font-size: 1rem;
   }
 
   .model-price-hover {
-    top: 16.5rem;
+    font-size: 1rem;
+    margin-top: 1rem;
   }
 }
 
@@ -266,22 +268,22 @@ export default {
 
   .model-name-hover {
     font-size: 1.125rem;
-    bottom: 10rem;
+
   }
 
   .model-description-hover {
     font-size: 1rem;
     width: 85%;
-    top: 5.5rem;
+
   }
 
   .model-price-hover {
     font-size: 1rem;
-    top: 10.5rem;
+    margin-top: 0;
   }
 
   .image-container {
-    height: 14.25rem;
+    height: 14rem;
   }
 
   .no-model {
@@ -313,16 +315,15 @@ export default {
 
   .model-name-hover {
     font-size: 1rem;
-    bottom: 11rem;
   }
 
   .model-description-hover {
     font-size: 0.875rem;
-    top: 6.5rem;
   }
 
   .model-price-hover {
     font-size: 0.875rem;
+    margin-top: 1rem;
   }
 }
 
