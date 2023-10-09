@@ -20,7 +20,8 @@
             <router-link :to="{ name: 'product', params: { id: model.sofa.id } }" class="model">
               <div class="background">
                 <div class="image-container">
-                  <img :src="`${this.backendURL}${model.sofa.first_image.image}`" :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image"/>
+                  <img :src="`${this.backendURL}${model.sofa.first_image.image}`"
+                       :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image"/>
                 </div>
 
                 <div class="model-title">
@@ -192,10 +193,13 @@ export default {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
   color: #000;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 5rem;
 }
 
 .info-container {
-  height: 10rem;
+  height: 7rem;
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -209,7 +213,7 @@ export default {
 }
 
 .model-price {
-  flex: 1;
+  flex: 2;
   color: #212121;
   font-size: 1.125rem;
 }
