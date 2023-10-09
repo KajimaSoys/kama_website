@@ -24,18 +24,17 @@
                        :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image"/>
                 </div>
 
-                <div class="model-title">
-                  {{ model.sofa.name }}
-                </div>
-
                 <div class="info-container">
+                  <div class="model-title">
+                    {{ model.sofa.name }}
+                  </div>
 
                   <div class="model-description" v-html="model.sofa.short_description">
                   </div>
+
                   <div class="model-price">
                     {{ this.formattedPrice(model.sofa.price) }}
                   </div>
-
                 </div>
               </div>
 
@@ -195,27 +194,27 @@ export default {
   color: #000;
   padding-left: 1rem;
   padding-right: 1rem;
-  height: 5rem;
 }
 
 .info-container {
-  height: 7rem;
+  height: 15rem;
   flex-direction: column;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .model-description {
   color: #484848;
   font-size: 1.125rem;
-  flex: 2;
   max-width: 80%;
 }
 
 .model-price {
-  flex: 2;
   color: #212121;
   font-size: 1.125rem;
+  position: absolute;
+  bottom: 1rem;
 }
 
 .swiper-controls {
