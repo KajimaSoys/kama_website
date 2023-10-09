@@ -204,6 +204,10 @@ export default {
   align-items: center;
 }
 
+.author-name {
+  text-align: left;
+}
+
 .author .image-container {
   height: 3.75rem;
   width: 3.75rem;
@@ -343,7 +347,6 @@ svg path {
 
   .author-name {
     font-size: 1rem;
-    text-align: left;
   }
 
   .review-text, .read-more {

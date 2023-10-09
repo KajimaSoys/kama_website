@@ -146,6 +146,10 @@ h1.title {
   border-radius: 50%;
 }
 
+.author-name {
+  text-align: left;
+}
+
 .review-images .image-container {
   height: 4.375rem;
   width: 4.375rem;
