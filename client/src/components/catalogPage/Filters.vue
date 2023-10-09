@@ -40,7 +40,6 @@
                 v-for="mechanism in filters.foldingMechanisms"
                 :key="mechanism"
                 :value="mechanism"
-                v-if="mechanism"
             >
               {{ translations[mechanism] }}
             </option>
