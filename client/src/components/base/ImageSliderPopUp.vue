@@ -7,6 +7,7 @@
             <swiper
                 :navigation="true"
                 :modules="modules"
+                :keyboard="{enabled: true}"
                 class="mySwiper"
                 :initial-slide="this.currentImageIndex"
                 :space-between="32"
@@ -37,19 +38,21 @@
 </template>
 
 <script>
-import {Navigation, Pagination, Scrollbar, A11y} from 'swiper/modules';
+import {Navigation, Pagination, Scrollbar, A11y, Keyboard} from 'swiper/modules';
 import {Swiper, SwiperSlide} from 'swiper/vue';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'swiper/css/keyboard'
 
 export default {
   name: "ImageSliderPopUp",
   components: {
     Swiper,
     SwiperSlide,
+    Keyboard
   },
   inject: ['backendURL'],
   props: [
@@ -84,7 +87,7 @@ export default {
   },
   setup() {
     return {
-      modules: [Navigation],
+      modules: [Navigation, Keyboard],
     };
   },
 }
@@ -119,7 +122,7 @@ export default {
   position: relative;
   z-index: 101;
   width: 85vw;
-  max-height: 80vh;
+  height: 80vh;
 }
 
 .close-btn {
@@ -143,6 +146,7 @@ export default {
 
 .popup-content {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -210,7 +214,6 @@ export default {
 :deep(.swiper-button-prev:hover:after), :deep(.swiper-button-next:hover:after) {
   color: rgba(255, 255, 255, 1);
 }
-
 
 
 @media screen and (max-width: 1200px) {
