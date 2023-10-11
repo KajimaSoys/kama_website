@@ -13,8 +13,8 @@
             :pagination="{ el: '.swiper-pagination-2', clickable: true, bulletClass: 'swiper-pagination-bullet', bulletActiveClass: 'swiper-pagination-bullet-active' }"
         >
           <swiper-slide
-              v-for="(review, index) in this.reviews"
-              :key="index"
+              v-for="(review, reviewIndex) in this.reviews"
+              :key="reviewIndex"
           >
             <div class="review">
               <div class="author">
@@ -34,17 +34,17 @@
               </div>
 
               <div class="review-images" v-if="review.photos.length > 0">
-                <a v-for="photo in review.photos.slice(0, 5)" class="image-container"
-                   :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+                <div v-for="(photo, photoIndex) in review.photos.slice(0, 5)" class="image-container"
+                   @click="openImagePopUp(reviewIndex, photoIndex)">
                   <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
                        alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
-                </a>
+                </div>
               </div>
 
               <div class="review-text-wrapper">
-                <div :class="{ 'clamped': !isExpanded[index] }" class="review-text" v-show="true"
+                <div :class="{ 'clamped': !isExpanded[reviewIndex] }" class="review-text" v-show="true"
                      v-html="review.review"></div>
-                <div v-if="isTooLong[index]" @click="togglePopup(review)" class="read-more">
+                <div v-if="isTooLong[reviewIndex]" @click="togglePopup(review)" class="read-more">
                   Открыть полностью
                 </div>
               </div>
@@ -72,6 +72,13 @@
       </div>
     </div>
 
+    <ImageSliderPopUp
+        :visible="popUpVisible"
+        :images="reviews[currentReview] ? reviews[currentReview].photos : []"
+        :currentImageIndex="currentImage"
+        @closePopUp="closeImagePopUp()"
+    />
+
   </div>
 </template>
 
@@ -84,12 +91,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {computed, onBeforeUnmount, onMounted, ref} from "vue";
+import ImageSliderPopUp from "../base/ImageSliderPopUp.vue";
+
 
 export default {
   name: "Reviews",
   components: {
     Swiper,
     SwiperSlide,
+    ImageSliderPopUp,
   },
   inject: ['backendURL'],
   props: [
@@ -104,6 +114,9 @@ export default {
       shouldShowReadMore: {},
       isExpanded: {},
       isTooLong: {},
+      popUpVisible: false,
+      currentImage: 0,
+      currentReview: 0,
     }
   },
   mounted() {
@@ -120,6 +133,14 @@ export default {
     togglePopup(review) {
       this.$emit('popUpCall', review);
     },
+    openImagePopUp(reviewIndex, photoIndex) {
+      this.popUpVisible = true;
+      this.currentReview = reviewIndex
+      this.currentImage = photoIndex
+    },
+    closeImagePopUp() {
+      this.popUpVisible = false;
+    }
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -219,6 +240,10 @@ export default {
   height: 4.375rem;
   width: 4.375rem;
   overflow: hidden;
+}
+
+.image-container {
+  cursor: pointer;
 }
 
 .image {

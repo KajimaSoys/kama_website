@@ -6,7 +6,7 @@
       </h1>
 
       <div class="content">
-        <div class="review" v-for="(review, index) in this.reviews">
+        <div class="review" v-for="(review, reviewIndex) in this.reviews">
           <div class="author">
             <div class="image-container" v-if="review.author_photo">
               <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`"
@@ -24,20 +24,27 @@
           </div>
 
           <div class="review-images" v-if="review.photos.length > 0">
-            <a v-for="photo in review.photos.slice(0, 5)" class="image-container"
-               :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+            <div v-for="(photo, photoIndex) in review.photos.slice(0, 5)" class="image-container"
+                 @click="openImagePopUp(reviewIndex, photoIndex)">
               <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
                    alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
-            </a>
+            </div>
           </div>
 
           <div class="review-text-wrapper">
-            <div :class="{ 'clamped': !isExpanded[index] }" class="review-text" v-show="true"
+            <div :class="{ 'clamped': !isExpanded[reviewIndex] }" class="review-text" v-show="true"
                  v-html="review.review"></div>
-            <div v-if="isTooLong[index]" @click="togglePopup(review)" class="read-more">
+            <div v-if="isTooLong[reviewIndex]" @click="togglePopup(review)" class="read-more">
               Открыть полностью
             </div>
           </div>
+
+          <ImageSliderPopUp
+              :visible="popUpVisible[reviewIndex]"
+              :images="review.photos"
+              :currentImageIndex="currentImage"
+              @closePopUp="closeImagePopUp(reviewIndex)"
+          />
 
         </div>
       </div>
@@ -48,9 +55,14 @@
 </template>
 
 <script>
+import ImageSliderPopUp from "../base/ImageSliderPopUp.vue";
+
 export default {
   name: "Reviews",
   inject: ['backendURL'],
+  components: {
+    ImageSliderPopUp,
+  },
   props: [
     'reviews'
   ],
@@ -63,6 +75,8 @@ export default {
       shouldShowReadMore: {},
       isExpanded: {},
       isTooLong: {},
+      popUpVisible: {},
+      currentImage: 0
     }
   },
   mounted() {
@@ -79,6 +93,13 @@ export default {
     togglePopup(review) {
       this.$emit('popUpCall', review);
     },
+    openImagePopUp(reviewIndex, photoIndex) {
+      this.popUpVisible[reviewIndex] = true;
+      this.currentImage = photoIndex
+    },
+    closeImagePopUp(reviewIndex) {
+      this.popUpVisible[reviewIndex] = false;
+    }
   },
   computed: {
     formattedLink() {
@@ -154,6 +175,10 @@ h1.title {
   height: 4.375rem;
   width: 4.375rem;
   overflow: hidden;
+}
+
+.image-container {
+  cursor: pointer;
 }
 
 .image {
