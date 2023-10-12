@@ -48,6 +48,19 @@
 
         </div>
       </div>
+
+      <div class="button-container">
+        <div class="review-button">
+            <span class="button-text">
+              Оставить отзыв
+            </span>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2V22M2 12H22" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+        </div>
+
+      </div>
     </div>
 
 
@@ -217,6 +230,85 @@ h1.title {
   font-size: 1.125rem;
 }
 
+.button-container {
+  position: sticky;
+  bottom: 4rem;
+  margin-top: 4rem;
+  width: 24rem;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.review-button {
+  display: flex;
+  height: 3rem;
+  padding: 1rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  background: #212121;
+  text-decoration: none;
+
+  position: relative;
+  transition: background-color 0.5s ease;
+}
+
+.review-button:hover {
+  background: #21212100;
+}
+
+
+.review-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background: #E6E6E6;
+  z-index: 0;
+  clip-path: inset(-1% 100% -1% 0);
+  transition: clip-path 0.5s ease;
+}
+
+.review-button:hover:before {
+  clip-path: inset(-10% 0 0 -10%);
+}
+
+.review-button span {
+  color: #ffffff;
+  text-align: left;
+  font-size: 1.125rem;
+  position: relative;
+  background: linear-gradient(to right, #212121, #212121 50%, #ffffff 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background-position .18s ease-in-out;
+}
+
+svg {
+  flex-shrink: 0;
+  position: relative;
+  overflow: visible;
+}
+
+.review-button:hover span {
+  background-position: 0 100%;
+}
+
+.review-button path {
+  transition: stroke 0.4s ease;
+}
+
+.review-button:hover path {
+  stroke: #212121;
+}
+
+
 @media screen and (max-width: 1200px) {
   .reviews-component {
     margin-top: 4rem;
@@ -270,6 +362,19 @@ h1.title {
     width: 3.75rem;
     aspect-ratio: 1/1;
   }
+
+  .button-container {
+    width: 29rem;
+  }
+
+  .review-button {
+
+    padding: 1rem 1.5rem;
+  }
+
+  .review-button span {
+    font-size: 1rem;
+  }
 }
 
 @media screen and (max-width: 640px) {
@@ -298,6 +403,11 @@ h1.title {
 
   .read-more {
     bottom: -1rem;
+  }
+
+  .button-container {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
 
