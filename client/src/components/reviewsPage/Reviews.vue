@@ -175,9 +175,6 @@ h1.title {
   height: 4.375rem;
   width: 4.375rem;
   overflow: hidden;
-}
-
-.image-container {
   cursor: pointer;
 }
 

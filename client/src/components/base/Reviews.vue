@@ -240,9 +240,6 @@ export default {
   height: 4.375rem;
   width: 4.375rem;
   overflow: hidden;
-}
-
-.image-container {
   cursor: pointer;
 }
 
