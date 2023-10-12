@@ -22,16 +22,23 @@
               </div>
 
               <div class="review-images" v-if="this.review.photos.length > 0">
-                <a v-for="photo in this.review.photos.slice(0, 5)" class="image-container"
-                   :href="`${this.backendURL}${this.formattedLink(photo.photo)}`" target="_blank">
+                <div v-for="(photo, photoIndex) in this.review.photos.slice(0, 5)" class="image-container"
+                   @click="openImagePopUp(reviewIndex, photoIndex)">
                   <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
                        alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
-                </a>
+                </div>
               </div>
 
               <div class="review-text-wrapper">
                 <div class="review-text" v-show="true" v-html="this.review.review"></div>
               </div>
+
+              <ImageSliderPopUp
+                  :visible="popUpVisible"
+                  :images="review ? review.photos : []"
+                  :currentImageIndex="currentImage"
+                  @closePopUp="closeImagePopUp()"
+              />
 
             </div>
           </div>
@@ -49,8 +56,13 @@
 </template>
 
 <script>
+import ImageSliderPopUp from "../base/ImageSliderPopUp.vue";
+
 export default {
   name: "ReviewPopup",
+  components: {
+    ImageSliderPopUp,
+  },
   inject: ['backendURL'],
   props: [
     'popup_review',
@@ -59,13 +71,24 @@ export default {
   emits: [],
   data() {
     return {
-      review: {}
+      review: {},
+      popUpVisible: false,
+      currentImage: 0,
+      currentReview: 0,
     }
   },
   methods: {
     close() {
       this.$emit('close');
     },
+    openImagePopUp(reviewIndex, photoIndex) {
+      this.popUpVisible = true;
+      this.currentReview = reviewIndex
+      this.currentImage = photoIndex
+    },
+    closeImagePopUp() {
+      this.popUpVisible = false;
+    }
   },
   watch: {
     popup_review(newVal) {
@@ -116,7 +139,7 @@ export default {
 
 .close-btn {
   position: absolute;
-  z-index: 101;
+  z-index: 100;
   top: 1rem;
   right: 1rem;
   background: transparent;
@@ -167,6 +190,7 @@ export default {
   height: 4.375rem;
   width: 4.375rem;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .image {
@@ -238,7 +262,7 @@ export default {
     width: 3rem;
   }
 
-  .review-images .image-container{
+  .review-images .image-container {
     height: unset;
     max-height: 3.75rem;
     width: 3.75rem;
@@ -247,7 +271,7 @@ export default {
 }
 
 @media screen and (max-width: 400px) {
-  .review-images .image-container{
+  .review-images .image-container {
     width: 3rem;
   }
 }

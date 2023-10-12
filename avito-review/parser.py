@@ -80,7 +80,9 @@ def main(target_url: str):
 
                 img_idx = 1
                 for image_wrapper in image_wrappers:
-                    image_element = image_wrapper.find_element("css selector", "img")
+                    image_wrapper.click()
+                    time.sleep(1)
+                    image_element = driver.find_element("css selector", "img.styles-extended-gallery-img-_q67M")
                     image_src = image_element.get_attribute("src")
                     parsed_url = urlparse(image_src)
                     image_name = os.path.basename(parsed_url.path)
@@ -88,6 +90,10 @@ def main(target_url: str):
                         image_name += ".jpg"
                     image_path = os.path.join(review_photo_folder, f"{img_idx}_{image_name}")
                     urllib.request.urlretrieve(image_src, image_path)
+
+                    cross_button = driver.find_element("css selector", "div.styles-cross-jE1a2")
+                    cross_button.click()
+
                     img_idx += 1
 
             last_review_index = i  # Обновляем индекс последнего успешно собранного отзыва
