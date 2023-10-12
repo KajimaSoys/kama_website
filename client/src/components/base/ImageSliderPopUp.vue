@@ -164,7 +164,7 @@ export default {
   height: 100%;
 }
 
-.swiper-wrapper {
+:deep(.swiper-wrapper) {
   align-items: center;
 }
 
