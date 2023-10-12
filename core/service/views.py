@@ -18,7 +18,6 @@ import requests
 from django.conf import settings
 
 
-
 def aggregate_data(request):
     try:
         questions = Question.objects.all()
@@ -43,7 +42,7 @@ def aggregate_data(request):
 
 def get_reviews(request):
     try:
-        reviews = Review.objects.select_related("sofa").all()
+        reviews = Review.objects.select_related("sofa").filter(published=True)
 
         reviews_data = ReviewSerializer(reviews, many=True).data
 
@@ -55,6 +54,41 @@ def get_reviews(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
+
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def create_review(request):
+    try:
+        # Проверка HMAC
+        hmac_key = settings.HMAC_KEY
+        received_signature = request.META.get("HTTP_X_SIGNATURE")
+
+        if received_signature:
+            payload = json.dumps(
+                request.data, separators=(",", ":"), ensure_ascii=False
+            )
+            expected_signature = hmac.new(
+                bytes(hmac_key, "utf-8"),
+                msg=payload.encode("utf-8"),
+                digestmod=hashlib.sha256,
+            ).hexdigest()
+
+            if not hmac.compare_digest(expected_signature, received_signature):
+                return HttpResponse(status=403)
+        else:
+            return HttpResponse(status=403)
+
+        # Обработка данных отзыва
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])

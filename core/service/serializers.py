@@ -25,7 +25,14 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['author', 'review', 'author_photo', 'order', 'photos']
+        fields = ['author', 'review', 'author_photo', 'order', 'photos', 'published', ]
+
+    def create(self, validated_data):
+        photos_data = validated_data.pop('photos', [])
+        review = Review.objects.create(published=False, **validated_data)
+        for photo_data in photos_data:
+            ReviewPhoto.objects.create(field=review, **photo_data)
+        return review
 
 
 class PopularModelSerializer(serializers.ModelSerializer):

@@ -112,7 +112,8 @@ class ReviewAdmin(SortableAdminMixin, admin.ModelAdmin):
         return "Предпросмотр недоступен, отсутствует изображение."
 
     thumbnail.short_description = "Предпросмотр фото автора"
-    list_display = ['author', 'thumbnail', 'review']
+    list_display = ['author', 'thumbnail', 'review', 'published', ]
+    list_editable = ['published', ]
     readonly_fields = ['thumbnail']
 
     raw_id_fields = ("sofa",)

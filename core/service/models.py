@@ -31,6 +31,7 @@ class Review(models.Model):
     order = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Порядок")
     sofa = models.ForeignKey(Sofa, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviews', verbose_name="Диван")
     author_photo = models.FileField(verbose_name='Фото автора', upload_to='core/service/reviews/', max_length=500, blank=True)
+    published = models.BooleanField(verbose_name='Опубликовано', default=True)
 
     def __str__(self):
         return self.author
