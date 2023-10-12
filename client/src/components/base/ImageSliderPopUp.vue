@@ -122,7 +122,7 @@ export default {
   position: relative;
   z-index: 101;
   width: 85vw;
-  height: 80vh;
+  max-height: 80vh;
 }
 
 .close-btn {
@@ -164,6 +164,10 @@ export default {
   height: 100%;
 }
 
+.swiper-wrapper {
+  align-items: center;
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -186,11 +190,11 @@ export default {
 }
 
 :deep(.swiper-button-prev), :deep(.swiper-button-next) {
-  width: calc(8rem / 44 * 27);
-  height: 110%;
-  margin-top: calc(0px - (50% / 2));
+  width: 4rem;
+  height: 100%;
+  margin-top: 0;
   left: unset;
-  top: var(--swiper-navigation-top-offset, 39%);
+  top: 0;
   background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
   transition: background 0.3s ease-in-out !important;
 }
@@ -238,6 +242,11 @@ export default {
 
   .close-btn svg {
     width: 24px;
+  }
+
+
+  :deep(.swiper-button-prev:after), :deep(.swiper-button-next:after) {
+    font-size: 22px;
   }
 }
 
