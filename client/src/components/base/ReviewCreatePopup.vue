@@ -470,6 +470,14 @@ input[type="text"]:focus::placeholder, textarea:focus::placeholder {
   line-height: 1.4rem;
 }
 
+.el-upload__text {
+  line-height: 1.4rem;
+}
+
+:deep(.el-upload-list) {
+  margin: 0 0 0;
+}
+
 @media screen and (max-width: 1200px) {
 
 }
@@ -491,6 +499,19 @@ input[type="text"]:focus::placeholder, textarea:focus::placeholder {
 @media screen and (max-width: 640px) {
   .popup-content {
     max-width: 19.5rem;
+  }
+
+  .popup-description {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .popup-form-submit {
+    padding: 0.7rem 1.25rem;
+  }
+
+  .popup-form-submit span {
+    font-size: 1rem;
   }
 
   input[type="text"], textarea {

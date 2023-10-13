@@ -387,7 +387,7 @@ svg {
   }
 
   .review-button {
-    padding: 1rem 1.5rem;
+    padding: 0.7rem 1.5rem;
   }
 
   .review-button span {
