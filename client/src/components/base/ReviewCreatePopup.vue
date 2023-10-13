@@ -64,7 +64,7 @@
                   </div>
                   <template #tip>
                     <div class="el-upload__tip">
-                      Принимаются файлы размером до 3мб формата jpg/png. Максимум 5 фотографий.
+                      Принимаются файлы размером до 5мб в расширении jpg/png. Максимум 5 фотографий.
                     </div>
                   </template>
                 </el-upload>
@@ -201,8 +201,8 @@ export default {
         ElMessage.error('Фото должно быть в формате .jpg или .png!');
         return false;
       }
-      if (rawFile.size / 1024 / 1024 > 3) {
-        ElMessage.error('Изображение должно быть размером до 3мб');
+      if (rawFile.size / 1024 / 1024 > 5) {
+        ElMessage.error('Изображение должно быть размером до 5мб');
         return false;
       }
       return true;
