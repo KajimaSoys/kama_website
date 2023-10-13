@@ -383,10 +383,10 @@ svg {
 
   .button-container {
     width: 29rem;
+    bottom: 2rem;
   }
 
   .review-button {
-
     padding: 1rem 1.5rem;
   }
 
@@ -426,6 +426,7 @@ svg {
   .button-container {
     width: 100%;
     margin-top: 1rem;
+    bottom: 1rem;
   }
 }
 
