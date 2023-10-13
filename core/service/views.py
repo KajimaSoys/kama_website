@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponse
-from .models import Question, Review, PopularModel
+from .models import Question, Review, PopularModel, ReviewPhoto
 from .serializers import (
     QuestionSerializer,
     ReviewSerializer,
@@ -9,6 +9,7 @@ from .serializers import (
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from django.core.files.storage import default_storage
 
 import os
 import hmac
@@ -60,33 +61,21 @@ def get_reviews(request):
 @permission_classes((AllowAny,))
 def create_review(request):
     try:
-        # Проверка HMAC
-        hmac_key = settings.HMAC_KEY
-        received_signature = request.META.get("HTTP_X_SIGNATURE")
+        author = request.POST.get("author")
+        review = request.POST.get("review")
+        new_review = Review.objects.create(
+            author=author,
+            review=review,
+            published=False,
+        )
+        photo_files = request.FILES.getlist("photos")
+        for i, f in enumerate(photo_files):
+            path = default_storage.save("core/service/reviews/" + f.name, f)
+            ReviewPhoto.objects.create(field=new_review, photo=path, order=i + 1)
 
-        if received_signature:
-            payload = json.dumps(
-                request.data, separators=(",", ":"), ensure_ascii=False
-            )
-            expected_signature = hmac.new(
-                bytes(hmac_key, "utf-8"),
-                msg=payload.encode("utf-8"),
-                digestmod=hashlib.sha256,
-            ).hexdigest()
+        serializer = ReviewSerializer(new_review)
 
-            if not hmac.compare_digest(expected_signature, received_signature):
-                return HttpResponse(status=403)
-        else:
-            return HttpResponse(status=403)
-
-        # Обработка данных отзыва
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 

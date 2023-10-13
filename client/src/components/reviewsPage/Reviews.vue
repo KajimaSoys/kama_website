@@ -49,32 +49,37 @@
         </div>
       </div>
 
-      <div class="button-container">
-        <div class="review-button">
+      <div :class="{'button-container': true, 'hidden': reviewCreatePopUpVisible}">
+        <div class="review-button" @click="popUpCall()">
             <span class="button-text">
               Оставить отзыв
             </span>
 
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2V22M2 12H22" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+            <path d="M12 2V22M2 12H22" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
 
       </div>
     </div>
-
-
   </div>
+
+  <ReviewCreatePopup
+    :visible="reviewCreatePopUpVisible"
+    @close="hidePopUp()"
+  />
 </template>
 
 <script>
 import ImageSliderPopUp from "../base/ImageSliderPopUp.vue";
+import ReviewCreatePopup from "../base/ReviewCreatePopup.vue";
 
 export default {
   name: "Reviews",
   inject: ['backendURL'],
   components: {
     ImageSliderPopUp,
+    ReviewCreatePopup,
   },
   props: [
     'reviews'
@@ -89,13 +94,14 @@ export default {
       isExpanded: {},
       isTooLong: {},
       popUpVisible: {},
-      currentImage: 0
+      currentImage: 0,
+      reviewCreatePopUpVisible: false,
     }
   },
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        const elements = this.$el.querySelectorAll('.review-text');
+        const elements = document.querySelectorAll('.review-text');
         elements.forEach((element, index) => {
           this.isTooLong[index] = element.scrollHeight > element.clientHeight;
         });
@@ -112,7 +118,16 @@ export default {
     },
     closeImagePopUp(reviewIndex) {
       this.popUpVisible[reviewIndex] = false;
-    }
+    },
+    popUpCall() {
+      this.reviewCreatePopUpVisible = true;
+      document.body.style.overflow = "hidden";
+    },
+
+    hidePopUp() {
+      this.reviewCreatePopUpVisible = false;
+      document.body.style.overflow = "";
+    },
   },
   computed: {
     formattedLink() {
@@ -308,6 +323,9 @@ svg {
   stroke: #212121;
 }
 
+.hidden {
+  visibility: hidden;
+}
 
 @media screen and (max-width: 1200px) {
   .reviews-component {

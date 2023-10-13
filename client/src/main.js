@@ -5,8 +5,8 @@ import './assets/style.css'
 import axios from "axios";
 import { createMetaManager } from 'vue-meta'
 
-// import ElementPlus from "element-plus";
-// import 'element-plus/dist/index.css'
+import ElementPlus from "element-plus";
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 
@@ -14,7 +14,8 @@ app.use(router, axios)
 
 app.use(createMetaManager() )
 
-// app.use(ElementPlus)
+app.use(ElementPlus)
+
 let hmac_key = import.meta.env.VITE_HMAC_SECRET_KEY;
 let backendURL = import.meta.env.VITE_BACKEND_HOST;
 
