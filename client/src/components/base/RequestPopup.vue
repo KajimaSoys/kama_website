@@ -65,7 +65,7 @@
               </div>
 
               <div class="popup-form-submit success" v-else @click="close">
-                Закрыть
+                <span>Закрыть</span>
               </div>
             </div>
           </div>
@@ -320,6 +320,12 @@ input[type="text"]:focus, input[type="tel"]:focus {
   background-size: 500% 100%;
   background-position: 200px;
   transition: background-position .3s ease-in-out;
+}
+
+.popup-form-submit.success span {
+  width: 100%;
+  text-align: center;
+  background-position: 270px;
 }
 
 .popup-form-submit:hover span {

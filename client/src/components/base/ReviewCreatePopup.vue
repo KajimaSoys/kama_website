@@ -6,21 +6,26 @@
           <div class="popup-max">
             <div class="popup-content">
               <h2 class="popup-title" v-if="!popup.isSubmitted">
-                Задать вопрос
+                Оставьте свой отзыв
               </h2>
               <h2 v-else class="popup-title">
-                Ваша заявка принята!
+                Ваш отзыв принят!
               </h2>
 
-              <div class="popup-description">
-                Мы свяжемся с вами в течение 10 минут и поможем разобраться
+              <div class="popup-description" v-if="!popup.isSubmitted">
+                Расскажите что думаете о нашей компании
+              </div>
+
+              <div class="popup-description" v-else>
+                <br>
+                Он будет размещен после проверки
               </div>
 
               <div class="popup-form" v-if="!popup.isSubmitted">
 
-                <div :class="{ 'popup-form-input': true, 'popup-name-error': popup.nameError}">
+                <div :class="{ 'popup-form-input': true, 'popup-name-error': popup.authorError}">
                   <input
-                      v-model="this.popup.name"
+                      v-model="this.popup.author"
                       type="text"
                       name="input1"
                       placeholder="Введите имя"
@@ -28,26 +33,41 @@
                   >
                 </div>
 
-                <div :class="{ 'popup-form-input': true, 'popup-phone-error': popup.phoneError}">
-                  <input
-                      type="text"
-                      name="input1"
-                      placeholder="+7 (___) ___-__-__"
-                      v-mask="'+7 (###) ###-##-##'"
-                      required
-                      v-model="this.popup.phone"
-                  >
-                </div>
-
-                <div class="popup-form-input">
+                <div :class="{ 'popup-form-input': true, 'popup-message-error': popup.messageError}">
                 <textarea
                     v-model="this.popup.message"
                     type="text"
                     name="input1"
-                    rows="5"
-                    placeholder="Ваш вопрос"
+                    rows="3"
+                    required
+                    placeholder="Ваш отзыв"
                 ></textarea>
                 </div>
+
+                <el-upload
+                    class="photo-upload-form"
+                    drag
+                    multiple
+                    :limit="5"
+                    ref="upload"
+                    :file-list="fileList"
+                    :on-change="handlePhotosChange"
+                    :on-exceed="handleExceed"
+                    :before-upload="beforePhotoUpload"
+                    :http-request="customUploader"
+                >
+                  <el-icon class="el-icon--upload">
+                    <UploadFilled/>
+                  </el-icon>
+                  <div class="el-upload__text">
+                    Перетащите файлы сюда или <em>нажмите, чтобы загрузить</em>
+                  </div>
+                  <template #tip>
+                    <div class="el-upload__tip">
+                      Принимаются файлы размером до 3мб формата jpg/png. Максимум 5 фотографий.
+                    </div>
+                  </template>
+                </el-upload>
 
                 <div class="popup-form-submit" :class="{ 'pending': pending}" @click="this.sendPopUp(this.popup)">
                   <span>{{ this.sendButton }}</span>
@@ -84,15 +104,18 @@
 </template>
 
 <script>
-import {mask} from "vue-the-mask";
 import axios from "axios";
 import crypto from 'crypto-js';
+import {UploadFilled} from '@element-plus/icons-vue'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 
 export default {
-  name: "QuestionPopup",
+  name: "ReviewCreatePopup",
   inject: ['backendURL', 'hmac_key'],
-  directives: {mask},
+  components: {
+    UploadFilled
+  },
   props: {
     visible: {
       type: Boolean,
@@ -101,12 +124,12 @@ export default {
   },
   data() {
     return {
+      fileList: [],
       popup: {
-        name: '',
-        phone: '',
+        author: '',
         message: '',
-        nameError: false,
-        phoneError: false,
+        authorError: false,
+        messageError: false,
         isSubmitted: false,
       },
       sendButton: 'Отправить',
@@ -116,68 +139,78 @@ export default {
 
   methods: {
     async sendPopUp(popup) {
-      popup.nameError = false;
-      popup.phoneError = false;
+      popup.authorError = false;
+      popup.messageError = false;
 
-      if (popup.name.length < 2) {
-        popup.nameError = true;
+      if (popup.author.length < 2) {
+        popup.authorError = true;
       }
 
-      if (popup.phone.length !== 18) {
-        popup.phoneError = true;
+      if (popup.message.length < 3) {
+        popup.messageError = true;
       }
 
-      if (!popup.nameError && !popup.phoneError) {
+      if (!popup.authorError && !popup.messageError) {
         this.sendButton = 'Пожалуйста, подождите..'
         this.pending = true
 
-        let body = {
-          request: {
-            name: popup.name,
-            number: popup.phone,
-            message: popup.message || '',
-
-            project_version: this.$projectVersion,
-            user_agent: navigator.userAgent,
-            screen_resolution: `${window.screen.width}x${window.screen.height}`,
-            browser_language: navigator.language,
-            timezone: new Date().getTimezoneOffset(),
-            cookie: document.cookie
-          }
+        let formData = new FormData();
+        for (const [index, file] of this.fileList.entries()) {
+          formData.append('photos', file.raw);
         }
-
-        const payloadString = JSON.stringify(body);
-        const signature = crypto.HmacSHA256(payloadString, this.hmac_key).toString();
+        formData.append('author', popup.author);
+        formData.append('review', popup.message || '');
 
         await axios
-            .post('api/v1/create_order/', body, {
+            .post('api/v1/create_review/', formData, {
               headers: {
-                'X-Signature': signature
+                'Content-Type': 'multipart/form-data',
               }
             })
             .then(response => {
               this.pending = false
-              window.ym(95108306, 'reachGoal', 'request_question_success')
-
-              // console.log(response)
             })
             .catch(error => {
               console.log(error)
-              window.ym(95108306, 'reachGoal', 'request_question_error')
             })
 
         popup.isSubmitted = true;
       }
 
       setTimeout(() => {
-        popup.nameError = false
-        popup.phoneError = false
+        popup.authorError = false
+        popup.messageError = false
       }, 1500)
     },
 
     close() {
       this.$emit('close');
     },
+
+    handlePhotosChange(file, fileList) {
+      this.fileList = fileList;
+    },
+    handleExceed(files, uploadFiles) {
+      ElMessage.warning(
+          `Лимит 5 изображений, вы выбрали ${files.length} фото, что превысило лимит`
+      )
+    },
+    beforePhotoUpload(rawFile) {
+      const validTypes = ['image/jpeg', 'image/png'];
+      if (!validTypes.includes(rawFile.type)) {
+        ElMessage.error('Фото должно быть в формате .jpg или .png!');
+        return false;
+      }
+      if (rawFile.size / 1024 / 1024 > 3) {
+        ElMessage.error('Изображение должно быть размером до 3мб');
+        return false;
+      }
+      return true;
+    },
+    customUploader(uploadData) {
+      console.log('dummy upload for', uploadData)
+    }
+
   },
 }
 </script>
@@ -264,15 +297,15 @@ export default {
   width: 100%;
 }
 
-input[type="text"], input[type="tel"] {
+input[type="text"] {
   border: 1px solid #ccc;
   padding: 1rem;
   outline: none;
   font-family: OnestRegular, Inter, sans-serif;
-  width: 92%;
+  width: 94%;
 }
 
-input[type="text"]:focus, input[type="tel"]:focus {
+input[type="text"]:focus, textarea[type="text"]:focus {
   border-color: #212121;
 }
 
@@ -281,7 +314,7 @@ textarea {
   padding: 1rem;
   outline: none;
   font-family: OnestRegular, Inter, sans-serif;
-  width: 92%;
+  width: 94%;
   resize: none;
 }
 
@@ -297,12 +330,6 @@ textarea {
   font-size: 1rem;
   position: relative;
   transition: background-color 0.5s ease;
-}
-
-.popup-form-submit.success span {
-  width: 100%;
-  text-align: center;
-  background-position: 270px;
 }
 
 .popup-form-submit:hover {
@@ -341,6 +368,12 @@ textarea {
   transition: background-position .3s ease-in-out;
 }
 
+.popup-form-submit.success span {
+  width: 100%;
+  text-align: center;
+  background-position: 270px;
+}
+
 .popup-form-submit:hover span {
   background-position: 0 100%;
 }
@@ -376,26 +409,26 @@ textarea {
   }
 }
 
-.popup-name-error input, .popup-phone-error input {
+.popup-name-error input, .popup-message-error textarea {
   animation: highlight 1.5s ease-out forwards;
   border: 1px solid;
 }
 
-.popup-name-error input::placeholder, .popup-phone-error input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.popup-name-error input::placeholder, .popup-message-error textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   animation: highlight 1.5s ease-out forwards;
   color: inherit;
   opacity: 1;
 }
 
-.popup-name-error input:-ms-input-placeholder, .popup-phone-error input:-ms-input-placeholder {
+.popup-name-error input:-ms-input-placeholder, .popup-message-error textarea:-ms-input-placeholder {
   color: #DD1D1D;
 }
 
-.popup-name-error input::-ms-input-placeholder, .popup-phone-error input::-ms-input-placeholder {
+.popup-name-error input::-ms-input-placeholder, .popup-message-error textarea::-ms-input-placeholder {
   color: #DD1D1D;
 }
 
-input[type="text"]:focus::placeholder, input[type="tel"]:focus::placeholder {
+input[type="text"]:focus::placeholder, textarea:focus::placeholder {
   color: #888888;
 }
 
@@ -425,6 +458,18 @@ input[type="text"]:focus::placeholder, input[type="tel"]:focus::placeholder {
   border-radius: 13px !important;
 }
 
+:deep(.el-upload-dragger) {
+  padding: 1rem 1rem;
+}
+
+:deep(.el-upload-dragger:hover) {
+  border-color: #212121;
+}
+
+.el-upload__tip {
+  line-height: 1.4rem;
+}
+
 @media screen and (max-width: 1200px) {
 
 }
@@ -433,11 +478,36 @@ input[type="text"]:focus::placeholder, input[type="tel"]:focus::placeholder {
   .popup-content {
     max-width: 27.5rem;
   }
+
+  input[type="text"], textarea {
+    width: 92%;
+  }
+
+  .popup-description {
+    margin-bottom: 1rem;
+  }
 }
 
 @media screen and (max-width: 640px) {
   .popup-content {
     max-width: 19.5rem;
+  }
+
+  input[type="text"], textarea {
+    width: 90%;
+  }
+
+  .el-icon svg {
+    height: 0.5em;
+    width: 0.5em;
+  }
+
+  :deep(i.el-icon.el-icon--upload) {
+    margin-bottom: 0;
+  }
+
+  :deep(.el-upload-dragger) {
+    padding: 0rem 1rem 0.5rem 1rem
   }
 }
 

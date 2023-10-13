@@ -41,4 +41,5 @@ urlpatterns = [
     path('api/v1/sofas/<int:pk>/', catalog_views.SofaDetailView.as_view(), name='sofa_detail'),
 
     path('api/v1/create_order/', service_views.create_order, name='create_order'),
+    path('api/v1/create_review/', service_views.create_review, name='create_review'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

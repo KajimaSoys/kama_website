@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponse
-from .models import Question, Review, PopularModel
+from .models import Question, Review, PopularModel, ReviewPhoto
 from .serializers import (
     QuestionSerializer,
     ReviewSerializer,
@@ -9,6 +9,7 @@ from .serializers import (
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from django.core.files.storage import default_storage
 
 import os
 import hmac
@@ -16,7 +17,6 @@ import hashlib
 import json
 import requests
 from django.conf import settings
-
 
 
 def aggregate_data(request):
@@ -43,7 +43,7 @@ def aggregate_data(request):
 
 def get_reviews(request):
     try:
-        reviews = Review.objects.select_related("sofa").all()
+        reviews = Review.objects.select_related("sofa").filter(published=True)
 
         reviews_data = ReviewSerializer(reviews, many=True).data
 
@@ -55,6 +55,29 @@ def get_reviews(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
+
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def create_review(request):
+    try:
+        author = request.POST.get("author")
+        review = request.POST.get("review")
+        new_review = Review.objects.create(
+            author=author,
+            review=review,
+            published=False,
+        )
+        photo_files = request.FILES.getlist("photos")
+        for i, f in enumerate(photo_files):
+            path = default_storage.save("core/service/reviews/" + f.name, f)
+            ReviewPhoto.objects.create(field=new_review, photo=path, order=i + 1)
+
+        serializer = ReviewSerializer(new_review)
+
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
