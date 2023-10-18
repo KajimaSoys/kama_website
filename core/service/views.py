@@ -22,7 +22,7 @@ from django.conf import settings
 def aggregate_data(request):
     try:
         questions = Question.objects.all()
-        reviews = Review.objects.select_related("sofa").all()
+        reviews = Review.objects.select_related("sofa").filter(published=True)
         popular_models = PopularModel.objects.select_related("sofa").all()
 
         questions_data = QuestionSerializer(questions, many=True).data
