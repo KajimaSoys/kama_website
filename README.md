@@ -47,3 +47,6 @@ To set up the project locally, follow these steps:
    docker compose up -d
    ```
 5. Access the application at `localhost` or the configured port.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
