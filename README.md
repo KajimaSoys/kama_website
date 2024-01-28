@@ -1,7 +1,5 @@
 
-### Kama Furniture Factory Website Repository README
-
----
+# README for Kama Furniture Factory Website Repository
 
 ## Introduction
 Welcome to the GitHub repository for the Kama Furniture Factory website, accessible at https://kamamebel.com. This site serves as an online catalog showcasing a wide range of soft furniture products, designed to reflect the company's ethos and offerings. While the website facilitates product exploration, it focuses on providing information and connecting customers to the company via messenger for orders.
