@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <img :src="`${this.backendURL}${this.request.image}`" alt="Кама - производство мягкой мебели | Документ компании Кама" class="image"/>
+      <img :src="`${this.backendURL}${this.request.image}`" alt="Кама - производство мягкой мебели | Документ компании Кама" class="image" loading="lazy"/>
     </div>
 
 

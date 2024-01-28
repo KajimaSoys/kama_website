@@ -15,7 +15,6 @@ class Sofa(models.Model):
     description = RichTextField(verbose_name="Описание", help_text="Отображается на странице дивана")
     active = models.BooleanField(verbose_name="Опубликовано на сайте?", default=True)
 
-
     # Вторая группа полей
     SOFA_FORM_CHOICES = [
         ('straight', 'Прямой'),

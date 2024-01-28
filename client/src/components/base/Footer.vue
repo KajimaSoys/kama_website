@@ -5,7 +5,7 @@
       <div class="grid-row">
         <router-link class="logo" to="/">
           <img :src="`${this.backendURL}${this.footer.logo}`" alt="Кама - производство мягкой мебели | Логотип"
-               width="140" height="60">
+               width="140" height="60" loading="lazy">
         </router-link>
 
         <div class="navigate-links">

@@ -5,7 +5,7 @@
         <router-link :to="{ name: 'product', params: { id: sofa.id } }" class="model" v-for="sofa in filteredSofas">
           <div class="image-container">
             <img :src="`${this.backendURL}${sofa.first_image.image}`"
-                 :alt="`Кама - производство мягкой мебели | ${sofa.name}`" class="image"/>
+                 :alt="`Кама - производство мягкой мебели | ${sofa.name}`" class="image" loading="lazy"/>
           </div>
           <div class="text-container">
             <h2 class="model-name-hover">

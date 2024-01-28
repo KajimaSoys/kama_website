@@ -20,7 +20,7 @@
               :key="index"
           >
             <div class="image-container">
-              <img :src="`${this.backendURL}${this.formattedLink(image.image)}`" alt="Кама - производство мягкой мебели | Фото дивана" class="image"/>
+              <img :src="`${this.backendURL}${this.formattedLink(image.image)}`" alt="Кама - производство мягкой мебели | Фото дивана" class="image" loading="lazy"/>
             </div>
           </swiper-slide>
         </swiper>
@@ -49,7 +49,7 @@
             v-for="(image, index) in this.images"
             :key="index"
         >
-          <img :src="`${this.backendURL}${this.formattedLink(image.image)}`" alt="Кама - производство мягкой мебели | Фото дивана" class="image"/>
+          <img :src="`${this.backendURL}${this.formattedLink(image.image)}`" alt="Кама - производство мягкой мебели | Фото дивана" class="image" loading="lazy"/>
         </div>
       </div>
     </div>

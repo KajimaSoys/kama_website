@@ -11,7 +11,7 @@
             :to="{ name: 'product', params: { id: sofa.id } }"
             class="variant">
           <div class="image-container">
-            <img :src="`${this.backendURL}${sofa.first_image.image}`" :alt="`Кама - производство мягкой мебели | Фото похожего дивана - ${sofa.name}`" class="image"/>
+            <img :src="`${this.backendURL}${sofa.first_image.image}`" :alt="`Кама - производство мягкой мебели | Фото похожего дивана - ${sofa.name}`" class="image" loading="lazy"/>
           </div>
           <div class="button">
             <span>{{ this.findDifference(sofa) }}</span>

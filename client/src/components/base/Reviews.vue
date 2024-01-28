@@ -20,12 +20,12 @@
               <div class="author">
                 <div class="image-container" v-if="review.author_photo">
                   <img :src="`${this.backendURL}${this.formattedLink(review.author_photo)}`"
-                       alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image"/>
+                       alt="Кама - производство мягкой мебели | Фото автора отзыва" class="image" loading="lazy"/>
                 </div>
 
                 <div class="image-container" v-else>
                   <img src="/images/no-photo.png" alt="Кама - производство мягкой мебели | Фото автора отзыва"
-                       class="image"/>
+                       class="image" loading="lazy"/>
                 </div>
 
                 <div class="author-name">
@@ -37,7 +37,7 @@
                 <div v-for="(photo, photoIndex) in review.photos.slice(0, 5)" class="image-container"
                    @click="openImagePopUp(reviewIndex, photoIndex)">
                   <img :src="`${this.backendURL}${this.formattedLink(photo.photo)}`"
-                       alt="Кама - производство мягкой мебели | Фото отзыва" class="image"/>
+                       alt="Кама - производство мягкой мебели | Фото отзыва" class="image" loading="lazy"/>
                 </div>
               </div>
 

@@ -18,7 +18,7 @@
               >
                 <div class="image-container">
                   <img :src="`${this.backendURL}${this.formattedLink(image.photo)}`"
-                       alt="Кама - производство мягкой мебели | Фото дивана" class="image"/>
+                       alt="Кама - производство мягкой мебели | Фото дивана" class="image" loading="lazy"/>
                 </div>
               </swiper-slide>
             </swiper>

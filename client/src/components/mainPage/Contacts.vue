@@ -46,11 +46,11 @@
         </div>
 
         <div class="image-first">
-          <img :src="`${this.backendURL}${this.contacts.image_first}`" alt="Кама - производство мягкой мебели | Фото раздела контактов №1" class="image"/>
+          <img :src="`${this.backendURL}${this.contacts.image_first}`" alt="Кама - производство мягкой мебели | Фото раздела контактов №1" class="image" loading="lazy"/>
         </div>
 
         <div class="image-second">
-          <img :src="`${this.backendURL}${this.contacts.image_second}`" alt="Кама - производство мягкой мебели | Фото раздела контактов №2" class="image"/>
+          <img :src="`${this.backendURL}${this.contacts.image_second}`" alt="Кама - производство мягкой мебели | Фото раздела контактов №2" class="image" loading="lazy"/>
         </div>
       </div>
     </div>

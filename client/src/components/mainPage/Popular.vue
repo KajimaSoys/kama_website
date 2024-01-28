@@ -21,7 +21,7 @@
               <div class="background">
                 <div class="image-container">
                   <img :src="`${this.backendURL}${model.sofa.first_image.image}`"
-                       :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image"/>
+                       :alt="`Кама - производство мягкой мебели | ${model.sofa.name}`" class="image" loading="lazy"/>
                 </div>
 
                 <div class="info-container">
