@@ -99,6 +99,8 @@ def create_order(request):
         serializer.save()
         order_data = serializer.data
 
+        telepush_send(order_data)
+
         bitrix_data = {
             "fields[TITLE]": f"{order_data.get('name')} - kamamebel.com",
             "fields[NAME]": order_data.get("name"),
@@ -121,3 +123,20 @@ def create_order(request):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def telepush_send(order_data):
+    recipient_token = settings.RECIPIENT_TOKEN
+
+    message = "Клиент не оставил сообщения"
+    if order_data.get("message"):
+        message = f"Клиент оставил сообщение: {order_data.get('message')}"
+
+    data = {"text": f"*С сайта kamamebel.com поступила новая заявка!*\n"
+                    f"Имя: {order_data.get('name')}\n"
+                    f"Номер: {order_data.get('number')}\n"
+                    f"{message}"}
+    url = f"https://telepush.dev/api/messages/{recipient_token}"
+    response = requests.post(
+        url, json=data, headers={"Content-Type": "application/json"}
+    )
