@@ -6,6 +6,7 @@
         context: .
         dockerfile: ./Dockerfile.backend
       container_name: django-kama
+      restart: always
       environment:
         - DEBUG=${DEBUG}
         - SECRET_KEY=${SECRET_KEY}
@@ -20,6 +21,7 @@
         - CSRF_TRUSTED=${CSRF_TRUSTED}
         - HMAC_KEY=${HMAC_KEY}
         - BITRIX_WEBHOOK_URL=${BITRIX_WEBHOOK_URL}
+        - RECIPIENT_TOKEN=${RECIPIENT_TOKEN}
       volumes:
         - ./:/app
         - ./media:/app/media
@@ -31,6 +33,7 @@
         context: .
         dockerfile: ./Dockerfile.frontend
       container_name: nginx-kama
+      restart: always
       ports:
         - "127.0.0.1:8081:80"
       depends_on:
