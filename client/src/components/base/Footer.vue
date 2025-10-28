@@ -36,7 +36,7 @@
         <div class="developers">
           <a href="https://vk.com/shemyakin_er" target="_blank">Дизайн - Максим Шемякин</a>
           <a href="https://t.me/OneDudeAdam" target="_blank">Разработка - Вадим Гришин</a>
-          <a href="https://ru.kajimacode.com" target="_blank">Copyright © {{ new Date().getFullYear() }} KajimaCode</a>
+          <a href="https://kajimacode.ru" target="_blank">Copyright © {{ new Date().getFullYear() }} KajimaCode</a>
         </div>
 
 
