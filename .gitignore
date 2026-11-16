@@ -2,3 +2,10 @@
 *.pyc
 .idea/
 /static/
+
+# local / secrets
+kama_website/local_settings.py
+.env
+client/.env
+client/.env.*
+.DS_Store
