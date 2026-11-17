@@ -13,3 +13,6 @@ client/.env.*
 # frontend build
 client/node_modules/
 client/dist/
+
+# backup: открытые ключи age задаются на сервере
+scripts/backup/age-recipients.txt

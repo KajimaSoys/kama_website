@@ -1,0 +1,18 @@
+#!/bin/sh
+# Root-хелпер для config_backup.sh: пишет в stdout tar.gz системной конфигурации.
+# Ставится root'ом в /usr/local/sbin (владелец root, права 0755), аргументов не принимает.
+# sudoers (visudo -f /etc/sudoers.d/kama-config-snapshot):
+#   kajimasoys ALL=(root) NOPASSWD: /usr/local/sbin/kama-config-snapshot ""
+# Пустая строка в конце запрещает передавать аргументы.
+set -eu
+umask 077
+cd /
+
+paths=""
+for p in etc/nginx etc/letsencrypt etc/docker/daemon.json; do
+  [ -e "/$p" ] && paths="$paths $p"
+done
+[ -n "$paths" ] || { echo "kama-config-snapshot: нечего сохранять" >&2; exit 1; }
+
+# shellcheck disable=SC2086  # список путей без пробелов, разбиение по словам нужно
+exec tar -czf - $paths

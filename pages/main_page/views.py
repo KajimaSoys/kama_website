@@ -1,3 +1,5 @@
+import logging
+
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from .models import (
@@ -20,6 +22,9 @@ from .serializers import (
     DeliveryBlockSerializer,
     ContactsBlockSerializer
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 def aggregate_data(request):
@@ -54,8 +59,9 @@ def aggregate_data(request):
 
         return JsonResponse(response_data, safe=False)
 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    except Exception:
+        logger.exception('page data failed')
+        return JsonResponse({'error': 'Внутренняя ошибка сервера, попробуйте позже'}, status=500)
 
 
 def get_layout_data(request):
@@ -71,5 +77,6 @@ def get_layout_data(request):
 
         return JsonResponse(response_data, safe=False)
 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    except Exception:
+        logger.exception('page data failed')
+        return JsonResponse({'error': 'Внутренняя ошибка сервера, попробуйте позже'}, status=500)

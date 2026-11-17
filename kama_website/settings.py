@@ -120,6 +120,24 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Все ошибки с трейсбэками — в stdout контейнера (docker logs django-kama).
+# Клиенту при этом уходит только общий текст ошибки.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'plain': {'format': '%(asctime)s %(levelname)s %(name)s: %(message)s'},
+    },
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler', 'formatter': 'plain'},
+    },
+    'root': {'handlers': ['console'], 'level': 'INFO'},
+    'loggers': {
+        # Тела запросов и SQL в лог не пишем.
+        'django': {'handlers': ['console'], 'level': 'WARNING', 'propagate': False},
+    },
+}
+
 
 try:
     from .local_settings import *

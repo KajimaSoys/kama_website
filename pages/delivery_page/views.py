@@ -1,3 +1,5 @@
+import logging
+
 from django.http import JsonResponse
 from .models import (
     DeliveryBlock,
@@ -10,6 +12,9 @@ from .serializers import (
 
 from pages.main_page.models import HeaderBlock
 from pages.main_page.serializers import HeaderBlockSerializer
+
+
+logger = logging.getLogger(__name__)
 
 
 def aggregate_data(request):
@@ -29,6 +34,7 @@ def aggregate_data(request):
 
         return JsonResponse(response_data, safe=False)
 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    except Exception:
+        logger.exception('page data failed')
+        return JsonResponse({'error': 'Внутренняя ошибка сервера, попробуйте позже'}, status=500)
 

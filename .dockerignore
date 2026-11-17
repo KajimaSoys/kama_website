@@ -20,3 +20,4 @@ avito-review
 *.tar.gz
 DEPLOY*.md
 requirements.in
+scripts
