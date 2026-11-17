@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
 
-python manage.py makemigrations
-python manage.py migrate
-python manage.py collectstatic --noinput
+# makemigrations на сервере не запускаем: миграции создаются локально и коммитятся в репозиторий.
+python manage.py migrate --noinput
+python manage.py collectstatic --noinput --verbosity 0
 
-exec gunicorn kama_website.wsgi:application --bind 0.0.0.0:8000
+exec "$@"

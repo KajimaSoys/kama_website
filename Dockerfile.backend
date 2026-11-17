@@ -1,42 +1,46 @@
-# Стадия сборки: колёса для пакетов без готовых wheel (psycopg2)
-FROM python:3.8.20-slim-bookworm AS builder
+# syntax=docker/dockerfile:1
+FROM python:3.14.10-slim-trixie
 
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc libc6-dev libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt /tmp/requirements.txt
-RUN pip wheel --wheel-dir /wheels -r /tmp/requirements.txt
-
-
-# Итоговый образ
-FROM python:3.8.20-slim-bookworm
-
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_ROOT_USER_ACTION=ignore
 
+# Обновления безопасности системных пакетов поверх базового образа.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpq5 \
+    && apt-get upgrade -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
+
+# Непривилегированный пользователь без shell и домашнего каталога.
+# Писать он может только в media/ и static/, код принадлежит root и доступен только на чтение.
+RUN groupadd --system --gid 10001 app \
+    && useradd --system --uid 10001 --gid app --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin app \
+    && install -d -o app -g app -m 0755 /app/media /app/static
 
 WORKDIR /app
 
-COPY --from=builder /wheels /wheels
-RUN pip install --no-index --find-links=/wheels /wheels/* \
-    && rm -rf /wheels
+# Все пакеты зафиксированы вместе с хешами (pip сам включает --require-hashes).
+# psycopg[binary] ставится готовым wheel: компилятор и libpq-dev больше не нужны.
+COPY requirements.txt ./
+# После установки удаляем pip и ensurepip: в рантайме они не нужны, а их вложенные библиотеки дают лишние CVE.
+RUN pip install --no-compile -r requirements.txt \
+    && pip uninstall -y pip \
+    && rm -rf /usr/local/lib/python3.14/ensurepip
 
-COPY core/ /app/core/
-COPY kama_website/ /app/kama_website/
-COPY pages/ /app/pages/
-COPY media/ /app/media/
-COPY static/ /app/static/
-COPY manage.py /app/
+COPY core/ ./core/
+COPY kama_website/ ./kama_website/
+COPY pages/ ./pages/
+COPY manage.py entrypoint.sh ./
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+USER app
+
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
+CMD ["gunicorn", "kama_website.wsgi:application", \
+     "--bind", "0.0.0.0:8000", \
+     "--workers", "2", "--worker-class", "gthread", "--threads", "4", \
+     "--worker-tmp-dir", "/tmp", "--no-control-socket", \
+     "--timeout", "60", "--graceful-timeout", "30", \
+     "--access-logfile", "-", "--error-logfile", "-"]

@@ -1,67 +1,119 @@
-  services:
-    django:
-      build:
-        context: .
-        dockerfile: ./Dockerfile.backend
-      container_name: django-kama
-      restart: always
-      environment:
-        - DEBUG=${DEBUG}
-        - SECRET_KEY=${SECRET_KEY}
-        - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-        - DB_NAME=${DB_NAME}
-        - DB_USER=${DB_USER}
-        - DB_PASSWORD=${DB_PASSWORD}
-        - DB_HOST=${DB_HOST}
-        - DB_PORT=${DB_PORT}
-        - CSRF_COOKIE_SECURE=${CSRF_COOKIE_SECURE}
-        - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
-        - CSRF_TRUSTED=${CSRF_TRUSTED}
-        - HMAC_KEY=${HMAC_KEY}
-        - BITRIX_WEBHOOK_URL=${BITRIX_WEBHOOK_URL}
-        - RECIPIENT_TOKEN=${RECIPIENT_TOKEN}
-      volumes:
-        - ./:/app
-        - ./media:/app/media
-      depends_on:
-        db:
-          condition: service_healthy
+name: kama_website
 
-    nginx:
-      build:
-        context: .
-        dockerfile: ./Dockerfile.frontend
-      container_name: nginx-kama
-      restart: always
-      ports:
-        - "127.0.0.1:8081:80"
-      depends_on:
-        - django
-      volumes:
-        - ./static:/app/static
-        - ./media:/app/media
+# Общие настройки защиты для всех контейнеров.
+x-hardening: &hardening
+  restart: unless-stopped
+  init: true
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  pids_limit: 256
 
-    db:
-      image: postgres:16
-      container_name: db-kama
-      restart: always
-      environment:
-        - POSTGRES_DB=${DB_NAME}
-        - POSTGRES_USER=${DB_USER}
-        - POSTGRES_PASSWORD=${DB_PASSWORD}
-      volumes:
-        - db_data:/var/lib/postgresql/data
-        - ./postgresql:/docker-entrypoint-initdb.d
-      healthcheck:
-        test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-        interval: 5s
-        timeout: 5s
-        retries: 10
+services:
+  django:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: kama_website-django:latest
+    container_name: django-kama
+    env_file:
+      - .env
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./media:/app/media
+      - ./static:/app/static
+    networks:
+      - default
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthcheck/', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
-  volumes:
-    db_data:
+  nginx:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: kama_website-nginx:latest
+    container_name: nginx-kama
+    read_only: true
+    tmpfs:
+      - /tmp
+    ports:
+      - "127.0.0.1:8081:8080"
+    volumes:
+      - ./static:/app/static:ro
+      - ./media:/app/media:ro
+    networks:
+      - default
+    depends_on:
+      django:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
-  networks:
-    default:
-        name: kama_network
-        external: true
+  db:
+    <<: *hardening
+    # Официальный postgres:18.7-trixie + обновления безопасности Debian.
+    # gosu не нужен: контейнер сразу стартует от пользователя postgres (см. user ниже).
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM postgres:18.7-trixie
+        RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/* \
+            && rm -f /usr/local/bin/gosu
+    image: kama_website-db:18.7
+    container_name: db-kama
+    # Без env_file намеренно: Postgres не должен видеть SECRET_KEY, HMAC_KEY и токены.
+    # Значения подставляются compose из того же .env.
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # Сразу от postgres (uid 999): entrypoint не переключает пользователя, поэтому capabilities не нужны.
+    user: postgres
+    read_only: true
+    tmpfs:
+      - /tmp
+      # Каталог сокета должен принадлежать postgres (uid/gid 999), иначе не создать lock-файл.
+      - /var/run/postgresql:uid=999,gid=999,mode=0775
+    shm_size: 128m
+    volumes:
+      # С Postgres 18 том монтируется в /var/lib/postgresql, данные лежат в /var/lib/postgresql/18/docker.
+      - db18_data:/var/lib/postgresql
+    # База видна только Django: она во внутренней сети без выхода наружу.
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  # Старый том Postgres 16 (kama_website_db_data) не трогаем: он остаётся для отката.
+  db18_data:
+
+networks:
+  # Общая внешняя сеть: nginx и django.
+  default:
+    name: kama_network
+    external: true
+  # Внутренняя сеть только для django <-> db.
+  backend:
+    internal: true

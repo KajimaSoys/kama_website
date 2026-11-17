@@ -39,14 +39,17 @@ To set up the project locally, follow these steps:
    - `HMAC_KEY` - Key for HMAC.
    - `BITRIX_WEBHOOK_URL` - (Optional) For integrating with Bitrix.
 
-4. Use Docker Compose to build and run the containers:
+4. Use Docker Compose to build and run the containers. The external network `kama_network` must exist:
+   ```shell
+   docker network inspect kama_network >/dev/null 2>&1 || docker network create kama_network
+   ```
    ```shell
    docker compose build
    ```
    ```shell
    docker compose up -d
    ```
-5. Access the application at `localhost` or the configured port.
+5. Access the application at `http://127.0.0.1:8081`. `ALLOWED_HOSTS` must include `127.0.0.1`, otherwise the Docker healthcheck fails.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
