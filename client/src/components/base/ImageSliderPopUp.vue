@@ -211,11 +211,13 @@ export default {
   background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 100%);
 }
 
-:deep(.swiper-button-prev:after), :deep(.swiper-button-next:after) {
-  font-size: 30px;
+/* Swiper 12+ рисует стрелку SVG-иконкой на всю кнопку вместо шрифта: возвращаем прежний размер 30px */
+:deep(.swiper-button-prev svg), :deep(.swiper-button-next svg) {
+  width: auto;
+  height: 30px;
 }
 
-:deep(.swiper-button-prev:hover:after), :deep(.swiper-button-next:hover:after) {
+:deep(.swiper-button-prev:hover), :deep(.swiper-button-next:hover) {
   color: rgba(255, 255, 255, 1);
 }
 
@@ -245,8 +247,8 @@ export default {
   }
 
 
-  :deep(.swiper-button-prev:after), :deep(.swiper-button-next:after) {
-    font-size: 22px;
+  :deep(.swiper-button-prev svg), :deep(.swiper-button-next svg) {
+    height: 22px;
   }
 }
 

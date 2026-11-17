@@ -9,3 +9,7 @@ kama_website/local_settings.py
 client/.env
 client/.env.*
 .DS_Store
+
+# frontend build
+client/node_modules/
+client/dist/

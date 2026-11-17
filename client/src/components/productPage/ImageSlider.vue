@@ -7,7 +7,7 @@
             :modules="modules"
             :slides-per-view="1"
             :space-between="32"
-            :navigation="{ nextEl: '.swiper-button-next-2', prevEl: '.swiper-button-prev-2' }"
+            :navigation="{ nextEl: '.swiper-button-next-2', prevEl: '.swiper-button-prev-2', addIcons: false }"
             :pagination="{
           el: '.swiper-pagination-2',
           clickable: true,
@@ -180,6 +180,8 @@ export default {
 
 .swiper-button-next,
 .swiper-button-prev {
+  /* Swiper 12+ задаёт кнопкам ширину 44px; возвращаем прежние 27px из Swiper 10 */
+  width: calc(var(--swiper-navigation-size) / 44 * 27);
   height: 38.75rem;
   display: flex;
   justify-content: center;
